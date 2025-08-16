@@ -17,8 +17,9 @@ function App() {
       <div className='main'>
         <div className='header'>
           <input placeholder='🔍 Find friends'/>
-          <img src='/'/>
+          <img src='/profilePicture.JPG'/>
         </div>
+        <hr />
       </div>
     </>
   )
