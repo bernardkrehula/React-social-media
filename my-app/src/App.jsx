@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import data from './data'
+import SearchBar from './SearchBar';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
@@ -16,7 +17,7 @@ function App() {
     <>
       <div className='main'>
         <div className='header'>
-          <input placeholder='🔍 Find friends'/>
+          <SearchBar socialMediaData={socialMediaData}/>
           <img src='/profilePicture.JPG'/>
         </div>
         <hr />
