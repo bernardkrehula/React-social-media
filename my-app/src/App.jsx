@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import data from './data'
 import SearchBar from './SearchBar';
+import Btn from './Btn';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
@@ -22,7 +23,7 @@ function App() {
     <>
       <div className='main'>
         <div className='header'>
-          <SearchBar socialMediaData={socialMediaData} filterFriends={filterFriends}/>
+          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' socialMediaData={socialMediaData} filterFriends={filterFriends}/>
           <img src='/profilePicture.JPG'/>
         </div>
         <hr />
@@ -46,6 +47,10 @@ function App() {
               <h3>Varaždin, Croatia</h3>
             </div>
           </div>
+        </div>
+        <div className='addPost'>
+          <SearchBar placeholder='Write a post' variation='addPostBar'></SearchBar>
+          <Btn variation='addBtn'>Add post</Btn>
         </div>
       </div>
     </>

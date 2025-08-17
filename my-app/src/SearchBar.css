@@ -1,0 +1,16 @@
+.searchBar{
+    background-color: rgb(233, 233, 233);
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 1.6rem;
+    border: none;
+}
+.findFriendsBar{
+    margin-left: 10px;
+    width: 230px;
+}
+.addPostBar{
+    width: 400px;
+    padding: 7px 12px;
+    border-radius: 25px;
+}

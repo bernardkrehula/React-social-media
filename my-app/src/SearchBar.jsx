@@ -1,5 +1,6 @@
+import './SearchBar.css'
 
-const SearchBar = ({socialMediaData, filterFriends}) => {
+const SearchBar = ({placeholder,socialMediaData, filterFriends, variation}) => {
 
     const handleOnChange = (e) => {
         const value = e.target.value;
@@ -10,7 +11,7 @@ const SearchBar = ({socialMediaData, filterFriends}) => {
         else filterFriends([]);
     }
     return(
-        <input placeholder='🔍 Find friends' onChange={handleOnChange}/>
+        <input className={`searchBar ${variation}`} placeholder={placeholder} onChange={handleOnChange}/>
     )
 }
 
