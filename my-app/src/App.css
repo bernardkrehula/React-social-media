@@ -5,6 +5,7 @@ html{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .header{
   display: flex;
@@ -58,4 +59,37 @@ html{
   width: 60px;
   border-radius: 100px;
   object-fit: cover;
+}
+.profile-content{
+  width: 900px;
+  margin: 0 auto;
+  margin-top: -1px;
+}
+.backgroundPhoto{
+  width: 900px;
+  height: 500px;
+  object-fit: cover;
+}
+.profile-info{
+  display: flex;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+  margin-top: -5px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  gap: 25px;
+  padding-bottom: 40px;
+}
+.profile-info div{
+  font-size: 1.8rem;
+  margin-top: 30px;
+}
+.profile-info div h3{
+  font-weight: 500;
+}
+.profilePhoto{
+  width: 170px;
+  object-fit: cover;
+  border-radius: 100px;
+  margin-top: -85px;
+  margin-left: 40px;
 }

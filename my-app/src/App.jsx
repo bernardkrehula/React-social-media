@@ -26,7 +26,6 @@ function App() {
           <img src='/profilePicture.JPG'/>
         </div>
         <hr />
-
         {foundFriend.length != 0 ? <ul className='friends'>
           {foundFriend.map(friend => {
             const { firstName, lastName, img } = friend;
@@ -38,6 +37,16 @@ function App() {
                 </li>
           )
         })}</ul> : ''}
+        <div className='profile-content'>
+          <img className='backgroundPhoto' src='/background-image.jpg'/>
+          <div className='profile-info'>
+            <img className='profilePhoto' src='/profilePicture.JPG'/>
+            <div>
+              <h2>Bernard Krehula</h2>
+              <h3>Varaždin, Croatia</h3>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )
