@@ -16,7 +16,7 @@ function App() {
     console.log(friend)
   }
   setTimeout(() =>{
-    console.log('radi', foundFriend)
+   
   },1000)
   return (
     <>
@@ -26,14 +26,14 @@ function App() {
           <img src='/profilePicture.JPG'/>
         </div>
         <hr />
-        <ul className='friends'>
+        <ul className='friends' style={{display: foundFriend ? 'block' : 'none'}}>
           {foundFriend.map(friend => {
             const { firstName, lastName, img } = friend;
             console.log(firstName)
             return(
-                <li>
-                  <h2>{firstName} {lastName}</h2>
+                <li className='friend'>
                   <img src={img}/>
+                  <h2>{firstName} {lastName}</h2>
                 </li>
           )
         })}

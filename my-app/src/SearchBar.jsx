@@ -6,7 +6,8 @@ const SearchBar = ({socialMediaData, filterFriends}) => {
         const friend = socialMediaData['friendsList'].filter(friend => {
             return friend.firstName.toLowerCase().includes(value) || friend.lastName.toLowerCase().includes(value)
         })
-        filterFriends(friend);
+        if(value) filterFriends(friend);
+        else filterFriends([]);
     }
     return(
         <input placeholder='🔍 Find friends' onChange={handleOnChange}/>

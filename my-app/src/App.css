@@ -13,20 +13,49 @@ html{
   padding-bottom: 0;
 }
 .header img{
-  height: 80px;
-  border-radius: 80px;
+  height: 60px;
+  border-radius: 60px;
   margin-left: auto;
 }
 .header input{
   margin-left: 10px;
-  font-size: 2rem;
+  font-size: 1.6rem;
   border-radius: 15px;
   padding: 3px 5px;
   border: none;
+  width: 230px;
   background-color: rgb(233, 233, 233);
 }
 .main hr{
   margin: 0 auto;
   height: 1px;
   width: 98%;
+}
+.friends{
+  position: absolute;
+  margin-left: 30px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.2);
+  border-radius: 15px;
+  transition: 0.1s ease-in-out;
+}
+.friend{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 230px;
+  padding: 7px;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.friend:hover {
+  transition: 0.1s ease-in-out;
+  background-color: rgb(0, 0, 0, 0.2);
+}
+.friend img{
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+  object-fit: cover;
 }
