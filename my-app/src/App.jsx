@@ -26,7 +26,8 @@ function App() {
           <img src='/profilePicture.JPG'/>
         </div>
         <hr />
-        <ul className='friends' style={{display: foundFriend ? 'block' : 'none'}}>
+
+        {foundFriend.length != 0 ? <ul className='friends'>
           {foundFriend.map(friend => {
             const { firstName, lastName, img } = friend;
             console.log(firstName)
@@ -36,8 +37,7 @@ function App() {
                   <h2>{firstName} {lastName}</h2>
                 </li>
           )
-        })}
-        </ul>
+        })}</ul> : ''}
       </div>
     </>
   )
