@@ -4,6 +4,7 @@ import data from './data'
 import SearchBar from './SearchBar';
 import Btn from './Btn';
 import FriendList from './FriendList';
+import SinglePost from './SinglePost';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
@@ -56,6 +57,7 @@ function App() {
         </div>
         <div className='postContent'>
           <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
+          <SinglePost initialized={initialized} socialMediaData={socialMediaData}/>
         </div>
       </div>
     </>
