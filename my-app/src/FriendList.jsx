@@ -11,16 +11,23 @@ const FriendList = ({socialMediaData, initialized}) => {
     setTimeout(() =>{
         console.log(socialMediaData['friendsList'])
     },1000)
-    
+
      return(
         <div className="friendList">
             <h1>Friends</h1>
             <h2>{friendsData ? friendsData.length : ''} friends</h2>
-             {/* {socialMediaData.map(friend => {
+            <ul className='friendList-content'>
+                {friendsData ? friendsData.map(friend => {
+                const { id, firstName, lastName, img } = friend;
+                console.log(friend)
                 return(
-                    <img></img>
+                    <li key={id}>
+                        <img src={img}></img>
+                        <h3>{firstName} {lastName}</h3>
+                    </li>
                 )
-            })} */}
+            }) : ''}
+            </ul>
         </div>
     )
 }

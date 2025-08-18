@@ -1,0 +1,38 @@
+.friendList{
+    margin-top: 15px;
+    background-color: white;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 15px;
+}
+.friendList h1{
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.friendList h2{
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.friendList-content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    list-style: none;
+    width: fit-content;
+    column-gap: 35px;
+    row-gap: 60px;
+}
+.friendList-content li{
+    text-align: center;
+}
+.friendList-content li img{
+    width: 150px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.friendList-content h3{
+    font-size: 1.6rem;
+}
