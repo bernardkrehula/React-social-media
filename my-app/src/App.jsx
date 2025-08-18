@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import data from './data'
 import SearchBar from './SearchBar';
 import Btn from './Btn';
+import FriendList from './FriendList';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
+  const initialized = useRef(false);
 
 
   useEffect(() => {
     setSocialMediaData(data);
+    initialized.current = true;
   },[])
   const filterFriends = (friend) => {
     setFoundFriend(friend);
-    console.log(friend)
   }
   setTimeout(() =>{
    
@@ -51,6 +53,9 @@ function App() {
         <div className='addPost'>
           <SearchBar placeholder='Write a post' variation='addPostBar'></SearchBar>
           <Btn variation='addBtn'>Add post</Btn>
+        </div>
+        <div className='postContent'>
+          <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
         </div>
       </div>
     </>
