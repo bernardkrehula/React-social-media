@@ -95,7 +95,9 @@ html{
   margin-top: 10px;
 }
 .postContent{
+  display: flex;
   background-color: rgb(217, 217, 255);
-  padding: 7px 20px;
+  padding: 22px 20px;
   margin-top: 15px;
+  column-gap: 30px;
 }

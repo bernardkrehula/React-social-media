@@ -8,10 +8,6 @@ const FriendList = ({socialMediaData, initialized}) => {
         if(initialized.current) setFriendsData(socialMediaData['friendsList']);
     }, [socialMediaData])
 
-    setTimeout(() =>{
-        console.log(socialMediaData['friendsList'])
-    },1000)
-
      return(
         <div className="friendList">
             <h1>Friends</h1>
@@ -19,7 +15,6 @@ const FriendList = ({socialMediaData, initialized}) => {
             <ul className='friendList-content'>
                 {friendsData ? friendsData.map(friend => {
                 const { id, firstName, lastName, img } = friend;
-                console.log(friend)
                 return(
                     <li key={id}>
                         <img src={img}></img>

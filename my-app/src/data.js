@@ -83,7 +83,7 @@ const data = {
         {
             writenContent: "It's not who I am underneath, but what I do that defines me.",
             time: "about 1 year ago",
-            postComments: [null],
+            postComments: [],
             likes: [
                 {
                 name: "Kilibarda",

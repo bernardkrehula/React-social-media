@@ -33,7 +33,6 @@ function App() {
         {foundFriend.length != 0 ? <ul className='friends'>
           {foundFriend.map(friend => {
             const { firstName, lastName, img } = friend;
-            console.log(firstName)
             return(
                 <li className='friend'>
                   <img src={img}/>
