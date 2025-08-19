@@ -40,3 +40,21 @@
     border-radius: 100px;
     object-fit: cover;
 }
+.comments-tag{
+    display: flex;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+.comments-tag h2{
+    word-spacing: 2px;
+}
+.comments-tag h3{
+    margin-right: 8px;
+    font-size: 1.65rem;
+    font-weight: 500;
+}
+.comments-tag h4{
+    margin-right: 8px;
+    font-size: 1.65rem;
+    margin-left: auto;
+}
