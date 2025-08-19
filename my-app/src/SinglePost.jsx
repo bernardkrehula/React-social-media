@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import './SinglePost.css'
+import Btn from './Btn';
+import SearchBar from './SearchBar';
 
 const SinglePost = ({initialized, socialMediaData}) => {
     const [ postData, setPostData ] = useState([]);
@@ -16,7 +18,7 @@ const SinglePost = ({initialized, socialMediaData}) => {
                 return(
                     <React.Fragment key={index}>
                         <div className='profilePhoto-data'>
-                            <img src='/profilePicture.JPG'/>
+                            <img className='profileImg' src='/profilePicture.JPG'/>
                             <div className='profilePhoto-data-text'>
                                 <h1>Bernard Krehula</h1>
                                 <h2>{time}</h2>
@@ -37,19 +39,29 @@ const SinglePost = ({initialized, socialMediaData}) => {
                             })}
                             <h4>{postComments.length} comments</h4>
                         </div>
-                        <div className='addComment'>
-
-                            {postComments.map((comment, index) => {
-                                const { content, userName, userLastName, userImg} = comment;
-                                return(
-                                    <div className='commentSection' key={index}>
-                                        <img src={userImg}/>
-                                        <h2>{userName} {userLastName}</h2>
-                                        <input value={content} disabled/>
-                                    </div>
-                                )
-                            })} 
+                        <div className='like-comment-btns'>
+                            <Btn variation='comment-like-btn'>👍🏻Like</Btn>
+                            <Btn variation='comment-like-btn'>💬Comments</Btn>
                         </div>
+                        <div className='addComment'>
+                            <img className='profileImg' src='/profilePicture.JPG'/>
+                            <SearchBar placeholder='Write a comment'/>
+                            <Btn>Add comment</Btn>
+                        </div> 
+                        <div className='commentSection'>
+                            {postComments.map((comment, index) => {
+                            const { content, userName, userLastName, userImg} = comment;
+                            return(
+                                <div className='comments' key={index}>
+                                    <img src={userImg}/>
+                                    <h2>{userName} {userLastName}</h2>
+                                    <input value={content} disabled/>
+                                </div>
+                            )
+                        })}
+                        </div>  
+                         
+                        
                     </React.Fragment>
                 )
             }) : ''}

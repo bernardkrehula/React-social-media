@@ -1,6 +1,6 @@
 import './SearchBar.css'
 
-const SearchBar = ({placeholder,socialMediaData, filterFriends, variation}) => {
+const SearchBar = ({placeholder, socialMediaData, filterFriends, variation}) => {
 
     const handleOnChange = (e) => {
         const value = e.target.value;

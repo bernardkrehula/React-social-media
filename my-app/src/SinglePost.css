@@ -27,7 +27,7 @@
     width: 30px;
     cursor: pointer;
 }
-.profilePhoto-data img{
+.profileImg{
     display: inline;
     height: 70px;
     width: 70px;
@@ -44,6 +44,7 @@
     display: flex;
     font-size: 1.1rem;
     margin-top: 20px;
+    margin-bottom: 5px;
 }
 .comments-tag h2{
     word-spacing: 2px;
@@ -57,4 +58,20 @@
     margin-right: 8px;
     font-size: 1.65rem;
     margin-left: auto;
+    cursor: pointer;
+}
+.like-comment-btns{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+.addComment{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+.addComment input{
+    width: 280px;
 }
