@@ -4,3 +4,39 @@
     padding: 20px;
     width: 600px;
 }
+.post p{
+    font-size: 3.4rem;
+    margin-top: 30px;
+}
+.profilePhoto-data{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.profilePhoto-data-text{
+    display: flex;
+    flex-direction: column;
+}
+.profilePhoto-data-text h2{
+    font-weight: 500;
+    color: rgb(101, 101, 101);
+}
+.dots{
+    margin-left: auto;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+.profilePhoto-data img{
+    display: inline;
+    height: 70px;
+    width: 70px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+.commentSection img{
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    object-fit: cover;
+}
