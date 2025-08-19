@@ -1,3 +1,8 @@
+.post-section{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
 .post{
     background-color: white;
     border-radius: 15px;
@@ -74,4 +79,30 @@
 }
 .addComment input{
     width: 280px;
+}
+.commentSection{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.comment{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.comment-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 60px;
+    width: 100%;
+}
+.comment-info input{
+    width: 100%;
+}
+.comment svg{
+    height: 20px;
 }
