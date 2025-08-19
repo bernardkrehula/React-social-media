@@ -11,13 +11,23 @@ function App() {
   const [ foundFriend, setFoundFriend ] = useState([]);
   const initialized = useRef(false);
 
-
   useEffect(() => {
     setSocialMediaData(data);
     initialized.current = true;
   },[])
   const filterFriends = (friend) => {
     setFoundFriend(friend);
+    console.log('radi')
+  }
+  const addPost = () =>{
+    setSocialMediaData(prev => ({
+      ...prev,
+      postContentData: prev.postContentData.map(post => {
+        return {
+          ...post,
+        }
+      })
+    }))
   }
   setTimeout(() =>{
    
@@ -31,10 +41,10 @@ function App() {
         </div>
         <hr />
         {foundFriend.length != 0 ? <ul className='friends'>
-          {foundFriend.map(friend => {
+          {foundFriend.map((friend, index) => {
             const { firstName, lastName, img } = friend;
             return(
-                <li className='friend'>
+                <li className='friend' key={index}>
                   <img src={img}/>
                   <h2>{firstName} {lastName}</h2>
                 </li>

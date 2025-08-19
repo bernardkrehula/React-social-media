@@ -27,12 +27,12 @@ const SinglePost = ({initialized, socialMediaData}) => {
                         </div>
                         <p>{writenContent}</p>
                         <div className='comments-tag'>
-                            {postComments.slice(0, 2).map((content, index, array) => {
-                                const { userName, userLastName } = content;
+                            {likes.slice(0, 2).map((content, index, array) => {
+                                const { name, lastName } = content;
 
                                 return(
                                     <React.Fragment key={index}>
-                                      <h2>{userName} {userLastName}</h2>
+                                      <h2>{name} {lastName}</h2>
                                       <h3>{index < array.length - 1 ? ',' : '...'}</h3>
                                     </React.Fragment>
                                 )
