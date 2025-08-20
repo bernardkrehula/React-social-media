@@ -9,6 +9,7 @@ import SinglePost from './SinglePost';
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
+  const [ inputValue, setInputValue ] = useState('');
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -22,16 +23,15 @@ function App() {
   const addPost = () =>{
     setSocialMediaData(prev => ({
       ...prev,
-      postContentData: prev.postContentData.map(post => {
-        return {
-          ...post,
-        }
-      })
+      postContentData: [
+        inputValue,
+        ...prev.postContentData
+      ]
     }))
   }
   setTimeout(() =>{
-   
-  },1000)
+    console.log(socialMediaData)
+  },5000)
   return (
     <>
       <div className='main'>
@@ -61,8 +61,8 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar'></SearchBar>
-          <Btn variation='addBtn'>Add post</Btn>
+          <SearchBar placeholder='Write a post' variation='addPostBar' setInputValue={setInputValue} addPost={addPost}></SearchBar>
+          <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
           <FriendList initialized={initialized} socialMediaData={socialMediaData}/>

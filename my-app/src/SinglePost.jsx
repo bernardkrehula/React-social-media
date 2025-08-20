@@ -45,7 +45,7 @@ const SinglePost = ({initialized, socialMediaData}) => {
                         </div>
                         <div className='addComment'>
                             <img className='profileImg' src='/profilePicture.JPG'/>
-                            <SearchBar placeholder='Write a comment'/>
+                            <SearchBar placeholder='Write a comment' variation='addComment'/>
                             <Btn>Add comment</Btn>
                         </div> 
                         <div className='commentSection'>
