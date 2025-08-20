@@ -5,13 +5,13 @@ import SearchBar from './SearchBar';
 import Btn from './Btn';
 import FriendList from './FriendList';
 import SinglePost from './SinglePost';
-import { use } from 'react';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
+  const [ isPostDotClicked, setPostDotClicked ] = useState(false);
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ function App() {
         </div>
         <div className='postContent'>
           <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
-          <SinglePost initialized={initialized} socialMediaData={socialMediaData}/>
+          <SinglePost initialized={initialized} socialMediaData={socialMediaData} isPostDotClicked={isPostDotClicked} setPostDotClicked={setPostDotClicked}/>
         </div>
       </div>
     </>
