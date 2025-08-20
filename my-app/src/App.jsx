@@ -11,7 +11,6 @@ function App() {
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
-  const [ isPostDotClicked, setPostDotClicked ] = useState(false);
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -74,7 +73,7 @@ function App() {
         </div>
         <div className='postContent'>
           <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
-          <SinglePost initialized={initialized} socialMediaData={socialMediaData} isPostDotClicked={isPostDotClicked} setPostDotClicked={setPostDotClicked} deletePost={deletePost}/>
+          <SinglePost initialized={initialized} socialMediaData={socialMediaData} deletePost={deletePost}/>
         </div>
       </div>
     </>

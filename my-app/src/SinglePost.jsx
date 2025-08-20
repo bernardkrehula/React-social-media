@@ -3,15 +3,16 @@ import './SinglePost.css'
 import Btn from './Btn';
 import SearchBar from './SearchBar';
 
-const SinglePost = ({initialized, socialMediaData, isPostDotClicked, setPostDotClicked, deletePost}) => {
+const SinglePost = ({initialized, socialMediaData, deletePost}) => {
     const [ postData, setPostData ] = useState([]);
+    const [ isPostDotClicked, setPostDotClicked ] = useState(null);
 
     useEffect(() => {
         if(initialized.current) setPostData(socialMediaData['postContentData']);
     }, [socialMediaData])
 
-    const displayOptions = () => {
-        setPostDotClicked(prev => !prev);
+    const displayOptions = (id) => {
+        setPostDotClicked(prev => (prev === id ? null : id));
     }
 
     return(
@@ -27,10 +28,10 @@ const SinglePost = ({initialized, socialMediaData, isPostDotClicked, setPostDotC
                                 <h1>Bernard Krehula</h1>
                                 <h2>{time}</h2>
                             </div>
-                            <svg className='dots' onClick={displayOptions} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                            <svg className='dots' onClick={() => displayOptions(id)} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                         </div>
-                        {isPostDotClicked ? <div className='post-dots'>
-                            <div className='dotBtns'>
+                        {isPostDotClicked === id && (<div className='post-dots'>
+                            <div className='dotBtns' onClick={() => displayOptions(id)}>
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
                                 <h2 className='dotsBtn'>Edit</h2>
                             </div>
@@ -38,7 +39,7 @@ const SinglePost = ({initialized, socialMediaData, isPostDotClicked, setPostDotC
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                 <h2 className='dotsBtn' onClick={() => deletePost(id)}>Delete</h2>
                             </div>
-                        </div> : ''}
+                        </div>)}
                         <p>{writenContent}</p>
                         <div className='comments-tag'>
                             {likes.slice(0, 2).map((content, index, array) => {
