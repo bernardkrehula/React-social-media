@@ -31,6 +31,12 @@ function App() {
     }))
     setInputValue('');
   }
+  const deletePost = (postID) => {
+    setSocialMediaData(prev => ({
+      ...prev,
+      postContentData: prev.postContentData.filter(post => post.id !== postID)
+    }))
+  }
   setTimeout(() =>{
     console.log(socialMediaData)
   },5000)
@@ -68,7 +74,7 @@ function App() {
         </div>
         <div className='postContent'>
           <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
-          <SinglePost initialized={initialized} socialMediaData={socialMediaData} isPostDotClicked={isPostDotClicked} setPostDotClicked={setPostDotClicked}/>
+          <SinglePost initialized={initialized} socialMediaData={socialMediaData} isPostDotClicked={isPostDotClicked} setPostDotClicked={setPostDotClicked} deletePost={deletePost}/>
         </div>
       </div>
     </>
