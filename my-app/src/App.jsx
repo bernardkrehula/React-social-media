@@ -5,10 +5,12 @@ import SearchBar from './SearchBar';
 import Btn from './Btn';
 import FriendList from './FriendList';
 import SinglePost from './SinglePost';
+import { use } from 'react';
 
 function App() {
   const [ socialMediaData, setSocialMediaData ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
+  const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
   const initialized = useRef(false);
 
@@ -18,16 +20,16 @@ function App() {
   },[])
   const filterFriends = (friend) => {
     setFoundFriend(friend);
-    console.log('radi')
   }
   const addPost = () =>{
     setSocialMediaData(prev => ({
       ...prev,
       postContentData: [
-        inputValue,
+        post,
         ...prev.postContentData
       ]
     }))
+    setInputValue('');
   }
   setTimeout(() =>{
     console.log(socialMediaData)
@@ -61,7 +63,7 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' setInputValue={setInputValue} addPost={addPost}></SearchBar>
+          <SearchBar placeholder='Write a post' variation='addPostBar' inputValue={inputValue} setInputValue={setInputValue} setPost={setPost} addPost={addPost}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
