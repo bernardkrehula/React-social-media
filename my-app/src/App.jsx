@@ -39,6 +39,8 @@ function App() {
   setTimeout(() =>{
     console.log(socialMediaData)
   },5000)
+
+  //Staviti u data user: i podaci
   return (
     <>
       <div className='main'>
@@ -72,7 +74,9 @@ function App() {
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
-          <FriendList initialized={initialized} socialMediaData={socialMediaData}/>
+          {/* socialMediaData.friends.map(() => { <singleFriend/> }) */}
+          <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
+          {/* socialMediaData.posts.map(() => { <singlePost/> }) */}
           <SinglePost initialized={initialized} socialMediaData={socialMediaData} deletePost={deletePost}/>
         </div>
       </div>

@@ -19,8 +19,11 @@ const SearchBar = ({placeholder, socialMediaData, filterFriends, inputValue, set
 
         }
         else{
-            emptyPost.writenContent = value;
-            setPost(emptyPost);
+            setPost({
+                ...emptyPost,
+                id: crypto.randomUUID(), 
+                writenContent: value
+            });
             setInputValue(value);
         }
     }

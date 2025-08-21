@@ -1,12 +1,12 @@
 import { use, useEffect, useState } from 'react'
 import './FriendList.css'
 
-const FriendList = ({socialMediaData, initialized}) => {
+const FriendList = ({friends, initialized}) => {
     const [ friendsData, setFriendsData ] = useState([]);
 
     useEffect(() =>{
-        if(initialized.current) setFriendsData(socialMediaData['friendsList']);
-    }, [socialMediaData])
+        if(initialized.current) setFriendsData(friends);
+    }, [friends])
 
      return(
         <div className="friendList">
