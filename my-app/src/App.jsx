@@ -37,8 +37,8 @@ function App() {
     }))
   }
   setTimeout(() =>{
-    console.log(socialMediaData)
-  },5000)
+    
+  },1000)
 
   //Staviti u data user: i podaci
   return (
@@ -77,6 +77,7 @@ function App() {
           {/* socialMediaData.friends.map(() => { <singleFriend/> }) */}
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
           {/* socialMediaData.posts.map(() => { <singlePost/> }) */}
+          {initialized.current ? socialMediaData.postContentData.map((post) => (<SinglePost initialized={initialized} post={post} deletePost={deletePost}/>)) : ''}
           <SinglePost initialized={initialized} socialMediaData={socialMediaData} deletePost={deletePost}/>
         </div>
       </div>

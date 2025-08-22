@@ -3,23 +3,20 @@ import './SinglePost.css'
 import Btn from './Btn';
 import SearchBar from './SearchBar';
 
-const SinglePost = ({initialized, socialMediaData, deletePost}) => {
-    const [ postData, setPostData ] = useState([]);
+const SinglePost = ({initialized, post, deletePost}) => {
+    const [ postData, setPostData ] = useState({});
     const [ isPostDotClicked, setPostDotClicked ] = useState(null);
 
     useEffect(() => {
-        if(initialized.current) setPostData(socialMediaData['postContentData']);
-    }, [socialMediaData])
-
-    const displayOptions = (id) => {
-        setPostDotClicked(prev => (prev === id ? null : id));
-    }
+        if(initialized.current) setPostData(post);
+    }, [post])
 
     return(
         <div className='post-section'>
-            {postData ? postData.map((data, index) => {
-                const { id, writenContent, time, postComments, likes } = data;
-             
+            {postData ? 
+            {
+                const { id, writenContent, time, postComments, likes } = postData;
+                console.log(postData)
                 return(
                     <div className='post' key={index}>
                         <div className='profilePhoto-data'>
@@ -81,6 +78,7 @@ const SinglePost = ({initialized, socialMediaData, deletePost}) => {
                     </div>
                 )
             }) : ''}
+            
         </div>
     )
 }
