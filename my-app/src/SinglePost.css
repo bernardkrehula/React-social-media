@@ -9,6 +9,10 @@
     padding: 20px;
     width: 600px;
 }
+.post textarea{
+    width: 100%;
+    box-sizing: border-box;
+}
 .post p{
     font-size: 3.4rem;
     margin-top: 30px;

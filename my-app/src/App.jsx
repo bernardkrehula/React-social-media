@@ -11,6 +11,7 @@ function App() {
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
+  const [ postInput, setPostInput ] = useState('');
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -36,9 +37,14 @@ function App() {
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
   }
+  const changePostContent = (id) => {
+    /* prev.id == id ? {...post, writenContent: inputValue} : post */
+    setSocialMediaData(prev => ({...prev, 
+      postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
+  }
   setTimeout(() =>{
-    
-  },1000)
+    console.log(socialMediaData)
+  },5000)
 
   //Staviti u data user: i podaci
   return (
@@ -74,13 +80,10 @@ function App() {
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
-          {/* socialMediaData.friends.map(() => { <singleFriend/> }) */}
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
-          {/* socialMediaData.posts.map(() => { <singlePost/> }) */}
           <div className='post-section'>
-            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost}/>)) : ''}
+            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput}/>)) : ''}
           </div>
-          <SinglePost initialized={initialized} socialMediaData={socialMediaData} deletePost={deletePost}/>
         </div>
       </div>
     </>
