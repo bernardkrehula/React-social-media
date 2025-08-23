@@ -18,7 +18,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     const { id, writenContent, time, postComments, likes } = postData;
 
     const editPost = () => {
-        setIsEdited(prev => !prev);
+        setIsEdited(prev => !prev)
         setPostInput(writenContent);
     }
     const optionsDisplayed = () => {

@@ -5,8 +5,10 @@ import SearchBar from './SearchBar';
 import Btn from './Btn';
 import FriendList from './FriendList';
 import SinglePost from './SinglePost';
+import LoadingSpinner from './LoadingSpinner';
 
 function App() {
+  const [ loading, setLoading ] = useState(false);
   const [ socialMediaData, setSocialMediaData ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
@@ -17,6 +19,10 @@ function App() {
   useEffect(() => {
     setSocialMediaData(data);
     initialized.current = true;
+
+    setTimeout(() => {
+      setLoading(true);
+    },2000)
   },[])
   const filterFriends = (friend) => {
     setFoundFriend(friend);
@@ -49,6 +55,7 @@ function App() {
   //Staviti u data user: i podaci
   return (
     <>
+      {loading ?
       <div className='main'>
         <div className='header'>
           <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' socialMediaData={socialMediaData} filterFriends={filterFriends}/>
@@ -86,6 +93,8 @@ function App() {
           </div>
         </div>
       </div>
+      : 
+      <LoadingSpinner />}
     </>
   )
 }

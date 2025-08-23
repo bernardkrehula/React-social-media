@@ -11,7 +11,8 @@
 }
 .post textarea{
     width: 100%;
-    box-sizing: border-box;
+    margin-top: 20px;
+    font-size: 3.4rem;
 }
 .post p{
     font-size: 3.4rem;
