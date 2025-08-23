@@ -77,7 +77,9 @@ function App() {
           {/* socialMediaData.friends.map(() => { <singleFriend/> }) */}
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
           {/* socialMediaData.posts.map(() => { <singlePost/> }) */}
-          {initialized.current ? socialMediaData.postContentData.map((post) => (<SinglePost initialized={initialized} post={post} deletePost={deletePost}/>)) : ''}
+          <div className='post-section'>
+            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost}/>)) : ''}
+          </div>
           <SinglePost initialized={initialized} socialMediaData={socialMediaData} deletePost={deletePost}/>
         </div>
       </div>
