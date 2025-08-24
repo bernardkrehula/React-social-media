@@ -33,12 +33,9 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
         setPostInput(value)
     }
     const addComment = () => {
-       addNewComment(id, comment);
-       setCommentInput('');
+        if(comment.content != '') addNewComment(id, comment);
+        setCommentInput('');
     }
-    setTimeout(() => {
-       /*  console.log(comment) */
-    },8000)
 
     return(
         <>
@@ -84,7 +81,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
                     <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setComment={setComment} value={commentInput}/>
-                    <Btn onClick={() => addComment(comment)}>Add comment</Btn>
+                    <Btn onClick={addComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
                     {postComments.slice().reverse().map((comment, index) => {
