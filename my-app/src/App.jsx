@@ -53,6 +53,9 @@ function App() {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, postComments: [...(post.postComments || []), newComment]} : post)}));
   }
+  const deleteComment = () => {
+    
+  }
   setTimeout(() =>{
     
   },1000)
