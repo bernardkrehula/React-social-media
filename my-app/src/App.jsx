@@ -49,8 +49,8 @@ function App() {
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
   setTimeout(() =>{
-    console.log(socialMediaData)
-  },5000)
+/*     console.log(socialMediaData)
+ */  },5000)
 
   //Staviti u data user: i podaci
   return (
