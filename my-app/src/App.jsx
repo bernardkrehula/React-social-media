@@ -86,7 +86,7 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' inputValue={inputValue} setInputValue={setInputValue} setPost={setPost} addPost={addPost}></SearchBar>
+          <SearchBar placeholder='Write a post' variation='addPostBar' setInputValue={setInputValue} setPost={setPost} addPost={addPost} value={inputValue}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>

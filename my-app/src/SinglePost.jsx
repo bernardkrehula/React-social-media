@@ -10,6 +10,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
     const [ comment, setComment ] = useState(newComment);
+    const [ commentInput, setCommentInput ] = useState('');
     
     useEffect(() => {
         if(initialized.current) setPostData(post);
@@ -33,6 +34,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     }
     const addComment = () => {
        addNewComment(id, comment);
+       setCommentInput('');
     }
     setTimeout(() => {
        /*  console.log(comment) */
@@ -80,7 +82,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' variation='addComment' setComment={setComment}/>
+                    <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setComment={setComment} value={commentInput}/>
                     <Btn onClick={() => addComment(comment)}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
