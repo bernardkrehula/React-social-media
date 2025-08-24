@@ -4,10 +4,12 @@
     gap: 30px;
 }
 .post{
+    display: flex;
     background-color: white;
     border-radius: 15px;
     padding: 20px;
     width: 600px;
+    flex-direction: column;
 }
 .post textarea{
     width: 100%;

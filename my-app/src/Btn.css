@@ -26,3 +26,7 @@
 .comment-like-btn:hover{
     background-color: rgb(0, 0, 0, 0.1);
 }
+.saveBtn{
+    margin-left: auto;
+    margin-top: 10px;
+}

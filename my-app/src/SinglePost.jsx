@@ -63,6 +63,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                     </div>
                 </div> : ''}
                 {isEdited ? <textarea value={postInput} onChange={handleOnChange}/> : <p>{writenContent}</p>}
+                {isEdited ? <Btn variation='saveBtn' onClick={editPost}>Save</Btn> : ''}
                 <div className='comments-tag'>
                     {likes.slice(0, 2).map((content, index, array) => {
                         const { name, lastName } = content;
