@@ -10,6 +10,7 @@ import LoadingSpinner from './LoadingSpinner';
 function App() {
   const [ loading, setLoading ] = useState(false);
   const [ socialMediaData, setSocialMediaData ] = useState({});
+  const [ user, setUser ] = useState({});
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
@@ -19,7 +20,8 @@ function App() {
   useEffect(() => {
     setSocialMediaData(data);
     initialized.current = true;
-
+    setUser(data.user);
+    
     setTimeout(() => {
       setLoading(true);
     },2000)
@@ -52,17 +54,16 @@ function App() {
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, postComments: [...(post.postComments || []), newComment]} : post)}));
   }
   setTimeout(() =>{
-    socialMediaData.postContentData.map(post => console.log(post.postComments))
+    
   },1000)
 
-  //Staviti u data user: i podaci
   return (
     <>
       {loading ?
       <div className='main'>
         <div className='header'>
           <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' socialMediaData={socialMediaData} filterFriends={filterFriends}/>
-          <img src='/profilePicture.JPG'/>
+          <img src={user.img}/>
         </div>
         <hr />
         {foundFriend.length != 0 ? <ul className='friends'>
@@ -76,12 +77,12 @@ function App() {
           )
         })}</ul> : ''}
         <div className='profile-content'>
-          <img className='backgroundPhoto' src='/background-image.jpg'/>
+          <img className='backgroundPhoto' src={user.backgroundImg}/>
           <div className='profile-info'>
-            <img className='profilePhoto' src='/profilePicture.JPG'/>
+            <img className='profilePhoto' src={user.img}/>
             <div>
-              <h2>Bernard Krehula</h2>
-              <h3>Varaždin, Croatia</h3>
+              <h2>{user.name} {user.lastName}</h2>
+              <h3>{user.city}, {user.country}</h3>
             </div>
           </div>
         </div>
@@ -92,7 +93,7 @@ function App() {
         <div className='postContent'>
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
           <div className='post-section'>
-            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} addNewComment={addNewComment}/>)) : ''}
+            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} addNewComment={addNewComment} user={user}/>)) : ''}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Btn from './Btn';
 import SearchBar from './SearchBar';
 import newComment from './newComment';
 
-const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, addNewComment}) => {
+const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, addNewComment, user}) => {
     const [ postData, setPostData ] = useState({});
     const showPost = useRef(false);
     const [ displayOptions, setDisplayOptions ] = useState(false);
@@ -45,7 +45,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
         {showPost.current ? 
             <div className='post'>
                 <div className='profilePhoto-data'>
-                    <img className='profileImg' src='/profilePicture.JPG'/>
+                    <img className='profileImg' src={user.img}/>
                     <div className='profilePhoto-data-text'>
                         <h1>Bernard Krehula</h1>
                         <h2>{time}</h2>

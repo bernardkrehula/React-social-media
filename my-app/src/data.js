@@ -1,5 +1,13 @@
 
 const data = {
+    user: {
+        name: 'Bernard',
+        lastName: 'Krehula',
+        city: 'Varaždin',
+        country: 'Croatia',
+        img: '/profilePicture.JPG',
+        backgroundImg: '/background-image.jpg'
+    },
     friendsList: [
         {                  
             id: crypto.randomUUID(),
