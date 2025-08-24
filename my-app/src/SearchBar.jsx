@@ -2,11 +2,9 @@ import { useState } from 'react';
 import './SearchBar.css'
 import emptyPost from './emptyPost';
 
-const SearchBar = ({placeholder, socialMediaData, filterFriends, inputValue, setInputValue, variation, setPost}) => {
-
+const SearchBar = ({ placeholder, socialMediaData, filterFriends, inputValue, setInputValue, variation, setPost, setComment}) => {
     const handleOnChange = (e) => {
         const value = e.target.value;
-        
         if(socialMediaData){
             const friend = socialMediaData['friendsList'].filter(friend => {
                 return friend.firstName.toLowerCase().includes(value) || friend.lastName.toLowerCase().includes(value)
@@ -15,10 +13,8 @@ const SearchBar = ({placeholder, socialMediaData, filterFriends, inputValue, set
             if(value) filterFriends(friend);
             else filterFriends([]);
         }
-        if(variation === 'addComment'){
-
-        }
-        else{
+        if(setComment) setComment(prev => ({...prev, content: value}));
+        if(setPost){
             setPost({
                 ...emptyPost,
                 id: crypto.randomUUID(), 

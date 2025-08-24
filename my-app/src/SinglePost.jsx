@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import './SinglePost.css'
 import Btn from './Btn';
 import SearchBar from './SearchBar';
+import newComment from './newComment';
 
-const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput}) => {
+const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, addNewComment}) => {
     const [ postData, setPostData ] = useState({});
     const showPost = useRef(false);
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
+    const [ comment, setComment ] = useState(newComment);
     
     useEffect(() => {
         if(initialized.current) setPostData(post);
@@ -29,6 +31,12 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
         changePostContent(id);
         setPostInput(value)
     }
+    const addComment = () => {
+       addNewComment(id, comment);
+    }
+    setTimeout(() => {
+       /*  console.log(comment) */
+    },8000)
 
     return(
         <>
@@ -72,12 +80,13 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' variation='addComment'/>
-                    <Btn>Add comment</Btn>
+                    <SearchBar placeholder='Write a comment' variation='addComment' setComment={setComment}/>
+                    <Btn onClick={() => addComment(comment)}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
                     {postComments.slice().reverse().map((comment, index) => {
                     const { content, userName, userLastName, userImg} = comment;
+                    
                     return(
                         <div className='comment' key={index}>
                             <img src={userImg}/>

@@ -44,13 +44,16 @@ function App() {
     }))
   }
   const changePostContent = (id) => {
-    /* prev.id == id ? {...post, writenContent: inputValue} : post */
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
+  const addNewComment = (id, newComment) => {
+    setSocialMediaData(prev => ({...prev, 
+      postContentData: prev.postContentData.map(post => post.id === id ? {...post, postComments: [...(post.postComments || []), newComment]} : post)}));
+  }
   setTimeout(() =>{
-/*     console.log(socialMediaData)
- */  },5000)
+    socialMediaData.postContentData.map(post => console.log(post.postComments))
+  },1000)
 
   //Staviti u data user: i podaci
   return (
@@ -89,7 +92,7 @@ function App() {
         <div className='postContent'>
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
           <div className='post-section'>
-            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput}/>)) : ''}
+            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} addNewComment={addNewComment}/>)) : ''}
           </div>
         </div>
       </div>
