@@ -2,25 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import './SinglePost.css'
 import Btn from './Btn';
 import SearchBar from './SearchBar';
-import newComment from './newComment';
+import newEmptyComment from './newEmptyComment';
 import DotOptions from './DotOptions';
+import Comment from './Comment';
 
 const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, addNewComment, user}) => {
     const [ postData, setPostData ] = useState({});
     const showPost = useRef(false);
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
-    const [ comment, setComment ] = useState(newComment);
+    const [ newComment, setNewComment ] = useState(newEmptyComment);
     const [ commentInput, setCommentInput ] = useState('');
-    const [ isCommentDisabled, setCommentDisabled ] = useState(true);
+    const [ editCommentInput, setEditCommentInput ] = useState('');
     
+    if(!postData) return null;
+    const { id, writenContent, time, postComments, likes } = postData;
+
     useEffect(() => {
         if(initialized.current) setPostData(post);
         showPost.current = true;
     }, [post])
-
-    if(!postData) return null;
-    const { id, writenContent, time, postComments, likes } = postData;
 
     const editPost = () => {
         setIsEdited(prev => !prev)
@@ -35,8 +36,12 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
         setPostInput(value)
     }
     const addComment = () => {
-        if(comment.content != '') addNewComment(id, comment);
+        if(newComment.content != '') addNewComment(id, newComment);
         setCommentInput('');
+    }
+    const editComment = (commentIndex) => {
+        console.log
+        setPostData(prev => ({...prev, postComments: postComments.map((comment, index) => index === commentIndex ? {...comment, content: commentInput} : comment)}))
     }
 
     return(
@@ -73,25 +78,11 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setComment={setComment} value={commentInput}/>
+                    <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setNewComment={setNewComment} value={commentInput}/>
                     <Btn onClick={addComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => {
-                    const { content, userName, userLastName, userImg} = comment;
-                    
-                    return(
-                        <div className='comment' key={index}>
-                            <img src={userImg}/>
-                            <div className='comment-info'>
-                                <h2>{userName} {userLastName}</h2>
-                                <SearchBar placeholder={content} disabled={isCommentDisabled}/>
-                            </div>
-                            <svg className='dots' xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
-                            {isEdited ? <DotOptions id={index} variation='commentOptions' setCommentDisabled={setCommentDisabled}/> : ''}
-                        </div>
-                    )
-                })}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} id={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput}/>)}
                 </div>
             </div> : ''}
         </>

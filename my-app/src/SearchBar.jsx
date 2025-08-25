@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './SearchBar.css'
 import emptyPost from './emptyPost';
 
-const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue, variation, setPost, setCommentInput, setComment, value, disabled}) => {
+const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue, variation, setPost, setCommentInput, setNewComment, value, disabled, setEditCommentInput}) => {
 
     const handleOnChange = (e) => {
         const value = e.target.value;
@@ -16,7 +16,7 @@ const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue,
         }
         if(setCommentInput) {
             setCommentInput(value);
-            setComment(prev => ({...prev, content: value}))
+            setNewComment(prev => ({...prev, content: value}))
         };
         if(setPost){
             setPost({
@@ -26,6 +26,7 @@ const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue,
             });
             setInputValue(value);
         }
+        if(setEditCommentInput) setEditCommentInput(value); 
     }
     return(
         <input className={`searchBar ${variation}`} placeholder={placeholder} value={value} onChange={handleOnChange} disabled={disabled}/>
