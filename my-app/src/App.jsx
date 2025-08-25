@@ -49,10 +49,7 @@ function App() {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
-  const addNewComment = (id, newComment) => {
-    setSocialMediaData(prev => ({...prev, 
-      postContentData: prev.postContentData.map(post => post.id === id ? {...post, postComments: [...(post.postComments || []), newComment]} : post)}));
-  }
+  
   setTimeout(() =>{
     
   },1000)
@@ -93,7 +90,7 @@ function App() {
         <div className='postContent'>
           <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
           <div className='post-section'>
-            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} addNewComment={addNewComment} user={user}/>)) : ''}
+            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} user={user}/>)) : ''}
           </div>
         </div>
       </div>

@@ -54,24 +54,28 @@ const data = {
 
             postComments: [
                 {
+                    id: crypto.randomUUID(),
                     content: "Makes me ponder on the importance of staying true to one's moral compass.",
                     userName: 'Majda',
                     userLastName: 'Odzaklijevska',
                     userImg: '/profile4.jpg'
                 },
                 {
+                    id: crypto.randomUUID(),
                     content: "It's a reminder that sometimes the best option is to stay true to your principles, even if the choices seem challenging.",
                     userName: 'Ethan',
                     userLastName: 'Turner',
                     userImg: '/profile5.jpg'
                 },
                 {
+                    id: crypto.randomUUID(),
                     content: "Choosing between evils can be a dilemma, but your stance adds a layer of wisdom to it.",
                     userName: 'Marc',
                     userLastName: 'Anderson',
                     userImg: '/profile6.jpg'
                 },
                 {
+                    id: crypto.randomUUID(),
                     content: "Sometimes the choices we face are so tough, it's almost like navigating through shades of gray.",
                     userName: 'Gordana',
                     userLastName: 'Stouns',
@@ -111,18 +115,21 @@ const data = {
             time: "about 1 year ago",
             postComments: [
                 {
+                    id: crypto.randomUUID(),
                     content: "Sometimes, it's the small gestures that make someone a hero",
                     userName: 'Hiroshi',
                     userLastName: 'Tanaka',
                     userImg: '/profile4.jpg'
                 },
                 {
+                    id: crypto.randomUUID(),
                     content: "Absolutely love this quote!",
                     userName: 'Marc',
                     userLastName: 'Anderson',
                     userImg: '/profile6.jpg'
                 },
                 {
+                    id: crypto.randomUUID(),
                     content: "Wow, this is so profound and inspiring! Couldn't agree more.",
                     userName: 'Gordana',
                     userLastName: 'Stouns',

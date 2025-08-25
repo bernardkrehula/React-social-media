@@ -6,7 +6,7 @@ import newEmptyComment from './newEmptyComment';
 import DotOptions from './DotOptions';
 import Comment from './Comment';
 
-const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, addNewComment, user}) => {
+const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, user}) => {
     const [ postData, setPostData ] = useState({});
     const showPost = useRef(false);
     const [ displayOptions, setDisplayOptions ] = useState(false);
@@ -21,7 +21,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     useEffect(() => {
         if(initialized.current) setPostData(post);
         showPost.current = true;
-    }, [post])
+    }, [])
 
     const editPost = () => {
         setIsEdited(prev => !prev)
@@ -35,13 +35,23 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
         changePostContent(id);
         setPostInput(value)
     }
+    const addNewComment = () => {
+        setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]
+    }))};
+    
     const addComment = () => {
-        if(newComment.content != '') addNewComment(id, newComment);
-        setCommentInput('');
+        if (newComment.content !== '') {
+            addNewComment(newComment);
+            setNewComment(newEmptyComment); 
+            setCommentInput('');
     }
-    const editComment = (commentIndex) => {
-        console.log
-        setPostData(prev => ({...prev, postComments: postComments.map((comment, index) => index === commentIndex ? {...comment, content: commentInput} : comment)}))
+    }
+    const editComment = (commentId) => {
+        console.log(commentId)
+        setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: commentInput} : comment)}))
+    }
+    const deleteComment = (commentId) => {
+        setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
     }
 
     return(
@@ -82,7 +92,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                     <Btn onClick={addComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} id={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput}/>)}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput} deleteComment={deleteComment}/>)}
                 </div>
             </div> : ''}
         </>
