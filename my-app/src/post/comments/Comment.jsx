@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import DotOptions from './DotOptions';
+import DotOptions from '../optionsMenu/DotOptions';
 import './Comment.css'
-import SearchBar from './SearchBar';
+import SearchBar from '../../searchBar/SearchBar';
 
 const Comment = ({comment, editComment, setEditCommentInput, deleteComment}) => {
     const [ isCommentDisabled, setCommentDisabled ] = useState(true);

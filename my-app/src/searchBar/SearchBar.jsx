@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './SearchBar.css'
-import emptyPost from './emptyPost';
+import emptyPost from '../appData/emptyPost';
 
 const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue, variation, setPost, setCommentInput, setNewComment, value, disabled, setEditCommentInput}) => {
 

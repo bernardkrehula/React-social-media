@@ -1,29 +1,36 @@
 import { useEffect, useState, useRef } from 'react'
 import './App.css'
-import data from './data'
-import SearchBar from './SearchBar';
-import Btn from './Btn';
-import FriendList from './FriendList';
-import SinglePost from './SinglePost';
-import LoadingSpinner from './LoadingSpinner';
+import data from './appData/data'
+import SearchBar from './searchBar/SearchBar';
+import Btn from './button/Btn';
+import FriendList from './friendList/FriendList';
+import SinglePost from './post/SinglePost';
+import LoadingSpinner from './loadingIcon/LoadingSpinner';
 
 function App() {
   const [ loading, setLoading ] = useState(false);
   const [ socialMediaData, setSocialMediaData ] = useState({});
-  const [ user, setUser ] = useState({});
+  const [ user, setUser ] = useState([]);
   const [ foundFriend, setFoundFriend ] = useState([]);
   const [ post, setPost ] = useState({});
   const [ inputValue, setInputValue ] = useState('');
   const [ postInput, setPostInput ] = useState('');
   const initialized = useRef(false);
+  //Napraviti strukturu unutar socialMediaData, ali na useEffect staviti podatke iz data.js u tu strukturu
+  //Maknuti edit komentara drugih usera samno da ih ja mogu brisati
+  //Dodati like posta
+  //Posloziti strukturu filova da ne bude sve razbacano u src
+  //Sve pomaknuti u komponente sto mogu
 
   useEffect(() => {
-    setSocialMediaData(data);
-    initialized.current = true;
-    setUser(data.user);
+    setLoading(true)
+    
     
     setTimeout(() => {
-      setLoading(true);
+      setSocialMediaData(data);
+
+      setUser(data.user);
+      setLoading(false);
     },2000)
   },[])
   const filterFriends = (friend) => {
@@ -45,18 +52,17 @@ function App() {
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
   }
+
+  //Pomaknuti changePostContent u singlePost
   const changePostContent = (id) => {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
-  
-  setTimeout(() =>{
-    
-  },1000)
+  console.log(user)
+  if(loading || user?.friendsList?.length === 0) return <LoadingSpinner />
 
   return (
     <>
-      {loading ?
       <div className='main'>
         <div className='header'>
           <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' socialMediaData={socialMediaData} filterFriends={filterFriends}/>
@@ -88,14 +94,12 @@ function App() {
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
-          <FriendList initialized={initialized} friends={socialMediaData.friendsList}/>
+          <FriendList friends={socialMediaData.friendsList}/>
           <div className='post-section'>
             {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} user={user}/>)) : ''}
           </div>
         </div>
       </div>
-      : 
-      <LoadingSpinner />}
     </>
   )
 }

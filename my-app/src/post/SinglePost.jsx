@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './SinglePost.css'
-import Btn from './Btn';
-import SearchBar from './SearchBar';
-import newEmptyComment from './newEmptyComment';
-import DotOptions from './DotOptions';
-import Comment from './Comment';
+import Btn from '../button/Btn';
+import SearchBar from '../searchBar/SearchBar';
+import newEmptyComment from '../appData/newEmptyComment';
+import DotOptions from './optionsMenu/DotOptions';
+import Comment from './comments/Comment';
 
 const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, user}) => {
     const [ postData, setPostData ] = useState({});
@@ -38,8 +38,8 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     const addNewComment = () => {
         setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]
     }))};
-    
-    const addComment = () => {
+
+    const manageComment = () => {
         if (newComment.content !== '') {
             addNewComment(newComment);
             setNewComment(newEmptyComment); 
@@ -47,7 +47,6 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
     }
     }
     const editComment = (commentId) => {
-        console.log(commentId)
         setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: commentInput} : comment)}))
     }
     const deleteComment = (commentId) => {
@@ -89,7 +88,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
                     <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setNewComment={setNewComment} value={commentInput}/>
-                    <Btn onClick={addComment}>Add comment</Btn>
+                    <Btn onClick={manageComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
                     {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput} deleteComment={deleteComment}/>)}

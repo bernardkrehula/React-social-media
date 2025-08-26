@@ -1,19 +1,14 @@
 import { use, useEffect, useState } from 'react'
 import './FriendList.css'
 
-const FriendList = ({friends, initialized}) => {
-    const [ friendsData, setFriendsData ] = useState([]);
+const FriendList = ({friends}) => {
 
-    useEffect(() =>{
-        if(initialized.current) setFriendsData(friends);
-    }, [friends])
-
-     return(
+    return(
         <div className="friendList">
             <h1>Friends</h1>
-            <h2>{friendsData ? friendsData.length : ''} friends</h2>
+            <h2>{friends?.length} friends</h2>
             <ul className='friendList-content'>
-                {friendsData ? friendsData.map(friend => {
+                {friends?.map(friend => {
                 const { id, firstName, lastName, img } = friend;
                 return(
                     <li key={id}>
@@ -21,7 +16,7 @@ const FriendList = ({friends, initialized}) => {
                         <h3>{firstName} {lastName}</h3>
                     </li>
                 )
-            }) : ''}
+            })}
             </ul>
         </div>
     )
