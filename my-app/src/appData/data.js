@@ -1,6 +1,6 @@
 
 const data = {
-    user: {
+    userData: {
         name: 'Bernard',
         lastName: 'Krehula',
         city: 'Varaždin',
@@ -44,7 +44,7 @@ const data = {
             firstName: "Marc",
             lastName: "Anderson",
             img: "/profile6.jpg",
-        },
+        }
     ],
     postContentData: [
         {

@@ -9,13 +9,42 @@ import LoadingSpinner from './loadingIcon/LoadingSpinner';
 
 function App() {
   const [ loading, setLoading ] = useState(false);
-  const [ socialMediaData, setSocialMediaData ] = useState({});
-  const [ user, setUser ] = useState([]);
-  const [ foundFriend, setFoundFriend ] = useState([]);
-  const [ post, setPost ] = useState({});
-  const [ inputValue, setInputValue ] = useState('');
-  const [ postInput, setPostInput ] = useState('');
-  const initialized = useRef(false);
+  const [ user, setUser ] = useState({
+    userData: {
+        name: '',
+        lastName: '',
+        city: '',
+        country: '',
+        img: '',
+        backgroundImg: ''
+    },
+    friendsList: [
+        {                  
+            id: '',
+            firstName: "",
+            lastName: "",
+            img: null,
+        }
+    ],
+    postContentData: [
+        {
+            id: '',
+            writenContent: "",
+            time: "",
+
+            postComments: [
+                {
+                    id: '',
+                    content: "",
+                    userName: '',
+                    userLastName: '',
+                    userImg: ''
+                }
+              ]
+        }
+    ]
+  });
+  const [ searchFriendInput, setSearchFriendInput ] = useState('');
   //Napraviti strukturu unutar socialMediaData, ali na useEffect staviti podatke iz data.js u tu strukturu
   //Maknuti edit komentara drugih usera samno da ih ja mogu brisati
   //Dodati like posta
@@ -24,12 +53,9 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    
-    
-    setTimeout(() => {
-      setSocialMediaData(data);
+    setUser(data);
 
-      setUser(data.user);
+    setTimeout(() => {
       setLoading(false);
     },2000)
   },[])
@@ -44,7 +70,6 @@ function App() {
         ...prev.postContentData
       ]
     }))
-    setInputValue('');
   }
   const deletePost = (postID) => {
     setSocialMediaData(prev => ({
@@ -58,28 +83,19 @@ function App() {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
-  console.log(user)
-  if(loading || user?.friendsList?.length === 0) return <LoadingSpinner />
+
+  if(loading) return <LoadingSpinner /> 
 
   return (
     <>
       <div className='main'>
         <div className='header'>
-          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' socialMediaData={socialMediaData} filterFriends={filterFriends}/>
+          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' setSearchedFriend={searchedFriend} filterFriends={filterFriends}/>
           <img src={user.img}/>
         </div>
         <hr />
-        {foundFriend.length != 0 ? <ul className='friends'>
-          {foundFriend.map((friend, index) => {
-            const { firstName, lastName, img } = friend;
-            return(
-                <li className='friend' key={index}>
-                  <img src={img}/>
-                  <h2>{firstName} {lastName}</h2>
-                </li>
-          )
-        })}</ul> : ''}
-        <div className='profile-content'>
+        <FriendList friendsList={user.friendsList} searchedFriend={searchedFriend}/>
+        {/* <div className='profile-content'>
           <img className='backgroundPhoto' src={user.backgroundImg}/>
           <div className='profile-info'>
             <img className='profilePhoto' src={user.img}/>
@@ -90,15 +106,15 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' setInputValue={setInputValue} setPost={setPost} addPost={addPost} value={inputValue}></SearchBar>
+          <SearchBar placeholder='Write a post' variation='addPostBar' addPost={addPost}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
-          <FriendList friends={socialMediaData.friendsList}/>
+          <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {initialized.current ? socialMediaData.postContentData.map((post, index) => (<SinglePost key={index} initialized={initialized} post={post} deletePost={deletePost} changePostContent={changePostContent} setPostInput={setPostInput} postInput={postInput} user={user}/>)) : ''}
+            {user.postContentData.map((post, index) => (<SinglePost key={index} post={post} deletePost={deletePost} changePostContent={changePostContent} user={user}/>))}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

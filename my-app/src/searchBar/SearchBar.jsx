@@ -2,11 +2,12 @@ import { useState } from 'react';
 import './SearchBar.css'
 import emptyPost from '../appData/emptyPost';
 
-const SearchBar = ({ placeholder, socialMediaData, filterFriends, setInputValue, variation, setPost, setCommentInput, setNewComment, value, disabled, setEditCommentInput}) => {
+const SearchBar = ({ placeholder, setSearchedFriend, socialMediaData, filterFriends, setInputValue, variation, setPost, setCommentInput, setNewComment, value, disabled, setEditCommentInput}) => {
 
     const handleOnChange = (e) => {
         const value = e.target.value;
-        if(socialMediaData){
+        if(setSearchedFriend){
+            
             const friend = socialMediaData['friendsList'].filter(friend => {
                 return friend.firstName.toLowerCase().includes(value) || friend.lastName.toLowerCase().includes(value)
             })

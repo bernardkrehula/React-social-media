@@ -1,14 +1,15 @@
 import { use, useEffect, useState } from 'react'
 import './FriendList.css'
 
-const FriendList = ({friends}) => {
-
+const FriendList = ({friendsList}) => {
+    
+    
     return(
         <div className="friendList">
             <h1>Friends</h1>
-            <h2>{friends?.length} friends</h2>
+            <h2>{friendsList.length} friends</h2>
             <ul className='friendList-content'>
-                {friends?.map(friend => {
+                {friendsList.map(friend => {
                 const { id, firstName, lastName, img } = friend;
                 return(
                     <li key={id}>
@@ -21,5 +22,14 @@ const FriendList = ({friends}) => {
         </div>
     )
 }
+/*{foundFriend.map((friend, index) => {
+            const { firstName, lastName, img } = friend;
+            return(
+                <li className='friend' key={index}>
+                  <img src={img}/>
+                  <h2>{firstName} {lastName}</h2>
+                </li>
+          )
+        })}*/
 
 export default FriendList;
