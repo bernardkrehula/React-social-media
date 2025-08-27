@@ -1,22 +1,9 @@
 import { use, useEffect, useState } from 'react'
 import './FriendList.css'
 
-const FriendList = ({friendsList, searchFriendInput}) => {
-    const [ friends, setFriends ] = useState([]);
-
-   useEffect(() => {
-        if(searchFriendInput != '') setFriends(friendsList);
-        else setFriends([]);
-        filterFriends(searchFriendInput); 
-        console.log(searchFriendInput)
-    },[searchFriendInput]);
-
-    const filterFriends = (searchFriendInput) => {
-        setFriends(prev => prev.filter(friend => friend.firstName.toLowerCase().includes(searchFriendInput) || friend.lastName.toLowerCase().includes(searchFriendInput)
-    ))
-        console.log(searchFriendInput)
-    };
- 
+const FriendList = ({friendsList}) => {
+    
+    
     return(
         <>
             <div className="friendList">
@@ -34,17 +21,6 @@ const FriendList = ({friendsList, searchFriendInput}) => {
                 })}
                 </ul>
             </div>
-            <ul className='friends'>
-                {friends.map((friend, index) => {
-                    const { firstName, lastName, img } = friend;
-                    return(
-                        <li className='friend' key={index}>
-                        <img src={img}/>
-                        <h2>{firstName} {lastName}</h2>
-                        </li>
-                )
-                })}
-            </ul>
         </>
         
     )

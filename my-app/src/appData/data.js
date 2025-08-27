@@ -1,6 +1,6 @@
 
 const data = {
-    userData: {
+    userPersonalData: {
         name: 'Bernard',
         lastName: 'Krehula',
         city: 'Varaždin',
