@@ -83,6 +83,7 @@ function App() {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
+  const changeFriendsInput = (value) => setSearchFriendInput(value);
 
   if(loading) return <LoadingSpinner /> 
 
@@ -90,11 +91,11 @@ function App() {
     <>
       <div className='main'>
         <div className='header'>
-          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' setSearchedFriend={searchedFriend} filterFriends={filterFriends}/>
+          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' changeFriendsInput={changeFriendsInput} filterFriends={filterFriends}/>
           <img src={user.img}/>
         </div>
         <hr />
-        <FriendList friendsList={user.friendsList} searchedFriend={searchedFriend}/>
+        <FriendList friendsList={user.friendsList} searchFriendInput={searchFriendInput}/>
         {/* <div className='profile-content'>
           <img className='backgroundPhoto' src={user.backgroundImg}/>
           <div className='profile-info'>
