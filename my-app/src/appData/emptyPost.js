@@ -1,5 +1,6 @@
 
 const emptyPost = {
+            id: crypto.randomUUID(),
             writenContent: "",
             time: `${new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, '0')}`,
 

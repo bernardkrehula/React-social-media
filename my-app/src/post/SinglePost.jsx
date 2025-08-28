@@ -6,22 +6,14 @@ import newEmptyComment from '../appData/newEmptyComment';
 import DotOptions from './optionsMenu/DotOptions';
 import Comment from './comments/Comment';
 
-const SinglePost = ({initialized, post, deletePost, changePostContent, postInput, setPostInput, user}) => {
-    const [ postData, setPostData ] = useState({});
-    const showPost = useRef(false);
+const SinglePost = ({ post, deletePost, changePostContent, postInput, setPostInput, user}) => {
+    const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
     const [ newComment, setNewComment ] = useState(newEmptyComment);
     const [ commentInput, setCommentInput ] = useState('');
     const [ editCommentInput, setEditCommentInput ] = useState('');
     
-    if(!postData) return null;
-    const { id, writenContent, time, postComments, likes } = postData;
-
-    useEffect(() => {
-        if(initialized.current) setPostData(post);
-        showPost.current = true;
-    }, [])
 
     const editPost = () => {
         setIsEdited(prev => !prev)
@@ -55,10 +47,9 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
 
     return(
         <>
-        {showPost.current ? 
             <div className='post'>
                 <div className='profilePhoto-data'>
-                    <img className='profileImg' src={user.img}/>
+                    <img className='profileImg' src={user.userPersonalData.img}/>
                     <div className='profilePhoto-data-text'>
                         <h1>Bernard Krehula</h1>
                         <h2>{time}</h2>
@@ -78,7 +69,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                                 <h3>{index < array.length - 1 ? ',' : '...'}</h3>
                             </React.Fragment>
                         )
-                    })}
+                    })} 
                     <h4>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>
@@ -93,7 +84,7 @@ const SinglePost = ({initialized, post, deletePost, changePostContent, postInput
                 <div className='commentSection'>
                     {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput} deleteComment={deleteComment}/>)}
                 </div>
-            </div> : ''}
+            </div>
         </>
         )
 }

@@ -38,12 +38,23 @@ function App() {
                     content: "",
                     userName: '',
                     userLastName: '',
-                    userImg: ''
+                    userImg: null
                 }
-              ]
+              ],
+            likes: [
+                {
+                name: "",
+                lastName: "",
+                },
+                {
+                    name: "",
+                    lastName: "",
+                }
+            ]
         }
     ]
   });
+  const [ newPost, setNewPost ] = useState({});
   const [ searchedFriend, setSearchedFriend ] = useState([]);
   //Napraviti strukturu unutar socialMediaData, ali na useEffect staviti podatke iz data.js u tu strukturu
   //Maknuti edit komentara drugih usera samno da ih ja mogu brisati
@@ -65,10 +76,10 @@ function App() {
     else setSearchedFriend([]);
   }
   const addPost = () =>{
-    setSocialMediaData(prev => ({
+    setUser(prev => ({
       ...prev,
       postContentData: [
-        post,
+        newPost,
         ...prev.postContentData
       ]
     }))
@@ -118,10 +129,8 @@ function App() {
             </div>
           </div>
         </div>
-        <FriendList friendsList={user.friendsList}/>
-
-        {/* <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' addPost={addPost}></SearchBar>
+        <div className='addPost'>
+          <SearchBar placeholder='Write a post' variation='addPostBar' setNewPost={setNewPost}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
@@ -129,7 +138,7 @@ function App() {
           <div className='post-section'>
             {user.postContentData.map((post, index) => (<SinglePost key={index} post={post} deletePost={deletePost} changePostContent={changePostContent} user={user}/>))}
           </div>
-        </div>  */}
+        </div>   
       </div>
     </>
   )
