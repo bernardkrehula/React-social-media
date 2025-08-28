@@ -8,8 +8,7 @@ const SearchBar = ({ placeholder, filterFriends, setNewPost, variation, setNewCo
         console.log(setNewComment)
         if(filterFriends) filterFriends(value);
 
-        if(setNewComment) {console.log(value)
-            setNewComment(prev => ({...prev, content: value}))};
+        if(setNewComment) setNewComment(prev => ({...prev, content: value}));
         
         if(setNewPost){
             setNewPost({

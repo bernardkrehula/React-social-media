@@ -73,11 +73,11 @@ const SinglePost = ({ post, deletePost, user}) => {
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' variation='addComment'/>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} variation='addComment'/>
                     <Btn onClick={addNewComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} setNewComment={setNewComment} deleteComment={deleteComment}/>)}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} deleteComment={deleteComment}/>)}
                 </div>
             </div>
         </>
