@@ -85,7 +85,7 @@ function App() {
     }))
   }
   const deletePost = (postID) => {
-    setSocialMediaData(prev => ({
+    setUser(prev => ({
       ...prev,
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
@@ -96,7 +96,6 @@ function App() {
     setSocialMediaData(prev => ({...prev, 
       postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
   }
-  const changeFriendsInput = (value) => setSearchFriendInput(value);
 
   if(loading) return <LoadingSpinner /> 
 
@@ -104,7 +103,7 @@ function App() {
     <>
       <div className='main'>
         <div className='header'>
-          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' changeFriendsInput={changeFriendsInput} filterFriends={filterFriends}/>
+          <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' filterFriends={filterFriends}/>
           <img src={user.img}/>
         </div>
         <hr />
