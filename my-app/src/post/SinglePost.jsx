@@ -29,12 +29,11 @@ const SinglePost = ({ post, deletePost, user}) => {
     }
     
     const addNewComment = () => {
-        console.log(newComment)
         setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]
     }))};
 
     const editComment = (commentId) => {
-        setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: commentInput} : comment)}))
+        setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: newComment.content } : comment)}))
     }
     const deleteComment = (commentId) => {
         setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
