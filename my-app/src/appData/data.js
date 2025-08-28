@@ -1,6 +1,7 @@
 
 const data = {
     userPersonalData: {
+        id: crypto.randomUUID(),
         name: 'Bernard',
         lastName: 'Krehula',
         city: 'Varaždin',

@@ -85,6 +85,7 @@ function App() {
     }))
   }
   const deletePost = (postID) => {
+    console.log('radi',postID)
     setUser(prev => ({
       ...prev,
       postContentData: prev.postContentData.filter(post => post.id !== postID)
@@ -92,10 +93,6 @@ function App() {
   }
 
   //Pomaknuti changePostContent u singlePost
-  const changePostContent = (id) => {
-    setSocialMediaData(prev => ({...prev, 
-      postContentData: prev.postContentData.map(post => post.id === id ? {...post, writenContent: postInput} : post)}));
-  }
 
   if(loading) return <LoadingSpinner /> 
 
@@ -135,7 +132,7 @@ function App() {
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map((post, index) => (<SinglePost key={index} post={post} deletePost={deletePost} changePostContent={changePostContent} user={user}/>))}
+            {user.postContentData.map((post, index) => (<SinglePost key={post.id} post={post} deletePost={deletePost} user={user}/>))}
           </div>
         </div>   
       </div>

@@ -3,41 +3,36 @@ import './SinglePost.css'
 import Btn from '../button/Btn';
 import SearchBar from '../searchBar/SearchBar';
 import newEmptyComment from '../appData/newEmptyComment';
-import DotOptions from './optionsMenu/DotOptions';
+import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
 
-const SinglePost = ({ post, deletePost, changePostContent, postInput, setPostInput, user}) => {
-    const { id, writenContent, time, postComments, likes } = post;
+const SinglePost = ({ post, deletePost, user}) => {
+    const [ postData, setPostData ] = useState(post)
+    const { id, writenContent, time, postComments, likes } = postData;
+    const [ postInput, setPostInput ] = useState(writenContent);
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
     const [ newComment, setNewComment ] = useState(newEmptyComment);
-    const [ commentInput, setCommentInput ] = useState('');
     const [ editCommentInput, setEditCommentInput ] = useState('');
-    
 
-    const editPost = () => {
-        setIsEdited(prev => !prev)
-        setPostInput(writenContent);
+    const editPost = (e) => {
+        const value = e.target.value;
+        setPostData(prev => ({...prev, writenContent: value }));
+        setPostInput(value)
     }
+    const saveEditPostChanges = () => {
+        setIsEdited(prev => !prev);
+    }
+
     const optionsDisplayed = () => {
         setDisplayOptions(prev => !prev);
     }
-    const handleOnChange = (e) => {
-        const value = e.target.value;
-        changePostContent(id);
-        setPostInput(value)
-    }
+    
     const addNewComment = () => {
+        console.log(newComment)
         setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]
     }))};
 
-    const manageComment = () => {
-        if (newComment.content !== '') {
-            addNewComment(newComment);
-            setNewComment(newEmptyComment); 
-            setCommentInput('');
-    }
-    }
     const editComment = (commentId) => {
         setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: commentInput} : comment)}))
     }
@@ -51,14 +46,14 @@ const SinglePost = ({ post, deletePost, changePostContent, postInput, setPostInp
                 <div className='profilePhoto-data'>
                     <img className='profileImg' src={user.userPersonalData.img}/>
                     <div className='profilePhoto-data-text'>
-                        <h1>Bernard Krehula</h1>
+                        <h1>{user.userPersonalData.name} {user.userPersonalData.lastName}</h1>
                         <h2>{time}</h2>
                     </div>
                     <svg className='dots' onClick={optionsDisplayed} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                 </div>
-                {displayOptions ? <DotOptions id={id} optionsDisplayed={optionsDisplayed} editPost={editPost} deletePost={deletePost} /> : ''}
-                {isEdited ? <textarea value={postInput} onChange={handleOnChange}/> : <p>{writenContent}</p>}
-                {isEdited ? <Btn variation='saveBtn' onClick={editPost}>Save</Btn> : ''}
+                {displayOptions ? <DotOptions id={id} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
+                {isEdited ? <textarea value={postInput} onChange={editPost}/> : <p>{writenContent}</p>}
+                {isEdited ? <Btn variation='saveBtn' onClick={() => {saveEditPostChanges}}>Save</Btn> : ''}
                 <div className='comments-tag'>
                     {likes.slice(0, 2).map((content, index, array) => {
                         const { name, lastName } = content;
@@ -78,11 +73,11 @@ const SinglePost = ({ post, deletePost, changePostContent, postInput, setPostInp
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' variation='addComment' setCommentInput={setCommentInput} setNewComment={setNewComment} value={commentInput}/>
-                    <Btn onClick={manageComment}>Add comment</Btn>
+                    <SearchBar placeholder='Write a comment' variation='addComment'/>
+                    <Btn onClick={addNewComment}>Add comment</Btn>
                 </div> 
                 <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} editCommentInput={editCommentInput} setEditCommentInput={setEditCommentInput} deleteComment={deleteComment}/>)}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} setNewComment={setNewComment} deleteComment={deleteComment}/>)}
                 </div>
             </div>
         </>
