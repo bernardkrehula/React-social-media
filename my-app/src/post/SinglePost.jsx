@@ -5,6 +5,7 @@ import SearchBar from '../searchBar/SearchBar';
 import newEmptyComment from '../appData/newEmptyComment';
 import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
+import userLike from '../appData/userLike';
 
 const SinglePost = ({ post, deletePost, user}) => {
     const [ postData, setPostData ] = useState(post)
@@ -13,7 +14,7 @@ const SinglePost = ({ post, deletePost, user}) => {
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
     const [ newComment, setNewComment ] = useState(newEmptyComment);
-    const [ editCommentInput, setEditCommentInput ] = useState('');
+    const [ isLiked, setIsLiked ] = useState(false);
 
     const editPost = (e) => {
         const value = e.target.value;
@@ -38,6 +39,11 @@ const SinglePost = ({ post, deletePost, user}) => {
     const deleteComment = (commentId) => {
         setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
     }
+    const addNewLike = () => {
+        setIsLiked(prev => !prev);
+        setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
+        console.log(likes)
+    };
 
     return(
         <>
@@ -60,14 +66,14 @@ const SinglePost = ({ post, deletePost, user}) => {
                         return(
                             <React.Fragment key={index}>
                                 <h2>{name} {lastName}</h2>
-                                <h3>{index < array.length - 1 ? ',' : '...'}</h3>
+                                <h3>{index < array.length - 1 ? ',' : isLiked ? array.length > 2 ? `and ${array.length - 2} others like this post` : 'likes this post' : 'likes this post'}</h3>
                             </React.Fragment>
                         )
                     })} 
                     <h4>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>
-                    <Btn variation='comment-like-btn'>👍🏻Like</Btn>
+                    <Btn variation='comment-like-btn' onClick={addNewLike}>👍🏻Like</Btn>
                     <Btn variation='comment-like-btn'>💬Comments</Btn>
                 </div>
                 <div className='addComment'>
