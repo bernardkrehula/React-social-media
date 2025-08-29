@@ -42,7 +42,7 @@ const SinglePost = ({ post, deletePost, user}) => {
     const addNewLike = () => {
         setIsLiked(prev => !prev);
         setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
-        console.log(likes)
+        if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
 
     return(
@@ -60,20 +60,19 @@ const SinglePost = ({ post, deletePost, user}) => {
                 {isEdited ? <textarea value={postInput} onChange={editPost}/> : <p>{writenContent}</p>}
                 {isEdited ? <Btn variation='saveBtn' onClick={() => {saveEditPostChanges}}>Save</Btn> : ''}
                 <div className='comments-tag'>
-                    {likes.slice(0, 2).map((content, index, array) => {
-                        const { name, lastName } = content;
-
+                    {likes.map((content, index, array) => {
+                        const { name, lastName, isLikedByUser } = content;
                         return(
                             <React.Fragment key={index}>
-                                <h2>{name} {lastName}</h2>
-                                <h3>{index < array.length - 1 ? ',' : isLiked ? array.length > 2 ? `and ${array.length - 2} others like this post` : 'likes this post' : 'likes this post'}</h3>
+                                {index < 2 ? <h2>{name} {lastName}</h2> : ''}
+                                <h3>{index < array.length - 1 ? ',' : array.length > 2 ? `and ${array.length - 2} other like this post` : 'likes this post'}</h3>
                             </React.Fragment>
                         )
                     })} 
                     <h4>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>
-                    <Btn variation='comment-like-btn' onClick={addNewLike}>👍🏻Like</Btn>
+                    <Btn variation={isLiked ? 'comment-like-btn-clicked' : 'comment-like-btn'} onClick={addNewLike}>👍🏻Like</Btn>
                     <Btn variation='comment-like-btn'>💬Comments</Btn>
                 </div>
                 <div className='addComment'>

@@ -1,5 +1,6 @@
 
 const userLike = {
+    isLikedByUser: true,
     name: 'Bernard',
     lastName: 'Krehula'
 }

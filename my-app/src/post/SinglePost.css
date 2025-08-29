@@ -60,10 +60,12 @@
 }
 .comments-tag h2{
     word-spacing: 2px;
+    font-size: 1.45rem;
 }
 .comments-tag h3{
     margin-right: 8px;
-    font-size: 1.65rem;
+    margin-left: 3px;
+    font-size: 1.45rem;
     font-weight: 500;
 }
 .comments-tag h4{

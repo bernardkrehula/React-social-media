@@ -26,6 +26,17 @@
 .comment-like-btn:hover{
     background-color: rgb(0, 0, 0, 0.1);
 }
+.comment-like-btn-clicked{
+    background-color: rgb(0, 0, 0, 0.3);
+    color: black;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    padding: 0;
+    font-size: 1.4rem;
+    width: 100%;
+}
+.comment-like-btn-clicked:hover{
+    background-color: rgb(0, 0, 0, 0.3);
+}
 .saveBtn{
     margin-left: auto;
     margin-top: 10px;
