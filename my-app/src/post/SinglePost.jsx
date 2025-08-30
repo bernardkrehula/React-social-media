@@ -15,7 +15,9 @@ const SinglePost = ({ post, deletePost, user}) => {
     const [ isEdited, setIsEdited ] = useState(false);
     const [ newComment, setNewComment ] = useState(newEmptyComment);
     const [ isLiked, setIsLiked ] = useState(false);
-
+    const [ displayComments, setDisplayComments ] = useState(false);
+    const focusInput = useRef(null);
+    
     const editPost = (e) => {
         const value = e.target.value;
         setPostData(prev => ({...prev, writenContent: value }));
@@ -44,6 +46,7 @@ const SinglePost = ({ post, deletePost, user}) => {
         setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
         if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
+    const focusAddComment = () => focusInput.current.focus();
 
     return(
         <>
@@ -61,28 +64,29 @@ const SinglePost = ({ post, deletePost, user}) => {
                 {isEdited ? <Btn variation='saveBtn' onClick={() => {saveEditPostChanges}}>Save</Btn> : ''}
                 <div className='comments-tag'>
                     {likes.map((content, index, array) => {
-                        const { name, lastName, isLikedByUser } = content;
+                        const { name, lastName } = content;
                         return(
                             <React.Fragment key={index}>
-                                {index < 2 ? <h2>{name} {lastName}</h2> : ''}
-                                <h3>{index < array.length - 1 ? ',' : array.length > 2 ? `and ${array.length - 2} other like this post` : 'likes this post'}</h3>
+                                {index < 2 ? <h2>{name} {lastName}</h2> : <h3>and {array.length - 2} other like this post</h3>}
+                                {index < 1 ? <h2 className='comma'>,</h2> : null}
+                                {index < 1 || array.length > 2 ? null : <h3>likes this post</h3>}
                             </React.Fragment>
                         )
                     })} 
-                    <h4>{postComments.length} comments</h4>
+                    <h4 onClick={() => setDisplayComments(prev => !prev)}>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>
                     <Btn variation={isLiked ? 'comment-like-btn-clicked' : 'comment-like-btn'} onClick={addNewLike}>👍🏻Like</Btn>
-                    <Btn variation='comment-like-btn'>💬Comments</Btn>
+                    <Btn variation='comment-like-btn' onClick={focusAddComment}>💬Comments</Btn>
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} variation='addComment'/>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} focusInput={focusInput} variation='addComment'/>
                     <Btn onClick={addNewComment}>Add comment</Btn>
                 </div> 
-                <div className='commentSection'>
+                {displayComments && postComments.length != 0 ? <div className='commentSection'>
                     {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} deleteComment={deleteComment}/>)}
-                </div>
+                </div> : null}
             </div>
         </>
         )

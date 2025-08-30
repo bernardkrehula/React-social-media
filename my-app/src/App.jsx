@@ -91,9 +91,7 @@ function App() {
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
   }
-
-  //Pomaknuti changePostContent u singlePost
-
+  
   if(loading) return <LoadingSpinner /> 
 
   return (
@@ -101,7 +99,7 @@ function App() {
       <div className='main'>
         <div className='header'>
           <SearchBar placeholder='🔍 Find friends' variation='findFriendsBar' filterFriends={filterFriends}/>
-          <img src={user.img}/>
+          <img src={user.userPersonalData.img}/>
         </div>
         <hr />
         <ul className='friends'>
