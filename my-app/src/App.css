@@ -100,4 +100,5 @@ html{
   padding: 22px 20px;
   margin-top: 15px;
   column-gap: 30px;
+  justify-content: space-evenly;
 }

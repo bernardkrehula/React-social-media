@@ -34,7 +34,7 @@ const SinglePost = ({ post, deletePost, user}) => {
         } 
     };
 
-    const editComment = (commentId, value) => setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: value } : comment)}))
+    const editComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: newComment.content } : comment)}))
     
     const deleteComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
     

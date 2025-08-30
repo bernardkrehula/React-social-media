@@ -85,13 +85,12 @@ function App() {
     }))
   }
   const deletePost = (postID) => {
-    console.log('radi',postID)
     setUser(prev => ({
       ...prev,
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
   }
-  
+
   if(loading) return <LoadingSpinner /> 
 
   return (
