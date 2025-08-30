@@ -16,7 +16,7 @@ const SinglePost = ({ post, deletePost, user}) => {
     const [ newComment, setNewComment ] = useState(newEmptyComment);
     const [ isLiked, setIsLiked ] = useState(false);
     const [ displayComments, setDisplayComments ] = useState(false);
-    const focusInput = useRef(null);
+    const refInput = useRef(null);
     
     const editPost = (e) => {
         const value = e.target.value;
@@ -32,8 +32,11 @@ const SinglePost = ({ post, deletePost, user}) => {
     }
     
     const addNewComment = () => {
-        setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]
-    }))};
+        if(newComment.content != ''){
+            setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]}))
+            refInput.current.value = '';
+        } 
+    };
 
     const editComment = (commentId) => {
         setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: newComment.content } : comment)}))
@@ -46,7 +49,7 @@ const SinglePost = ({ post, deletePost, user}) => {
         setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
         if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
-    const focusAddComment = () => focusInput.current.focus();
+    const focusAddComment = () => refInput.current.focus();
 
     return(
         <>
@@ -81,7 +84,7 @@ const SinglePost = ({ post, deletePost, user}) => {
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} focusInput={focusInput} variation='addComment'/>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} refInput={refInput} variation='addComment'/>
                     <Btn onClick={addNewComment}>Add comment</Btn>
                 </div> 
                 {displayComments && postComments.length != 0 ? <div className='commentSection'>

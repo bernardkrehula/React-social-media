@@ -1,15 +1,16 @@
 import './SearchBar.css'
 import emptyPost from '../appData/emptyPost';
 
-const SearchBar = ({ placeholder, filterFriends, setNewPost, variation, setNewComment, disabled, focusInput }) => {
+const SearchBar = ({ placeholder, filterFriends, setNewPost, variation, setNewComment, disabled, refInput }) => {
 
     const handleOnChange = (e) => {
         const value = e.target.value;
         
         if(filterFriends) filterFriends(value);
 
-        if(setNewComment && value != '') {console.log(value)
-            setNewComment(prev => ({...prev, content: value}))};
+        if(setNewComment) {
+            setNewComment(prev => ({...prev, content: value}))
+        };
         
         if(setNewPost){
             setNewPost({
@@ -19,7 +20,7 @@ const SearchBar = ({ placeholder, filterFriends, setNewPost, variation, setNewCo
         }
     }
     return(
-        <input className={`searchBar ${variation}`} ref={focusInput} placeholder={placeholder} onChange={handleOnChange} disabled={disabled}/>
+        <input className={`searchBar ${variation}`} ref={refInput} placeholder={placeholder} onChange={handleOnChange} disabled={disabled}/>
     )
 }
 
