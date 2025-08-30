@@ -1,18 +1,17 @@
 import './DotOptions.css'
 
-const DotOptions = ({id, variation, isCommentByUser, optionsDisplayed, saveEditPostChanges, deletePost, setCommentDisabled, activateOptions, isCommentDisabled, editComment, deleteComment}) => {
+const DotOptions = ({id, variation, displayOptions, isCommentByUser, optionsDisplayed, saveEditPostChanges, deletePost, manageEditComment, activateOptions, isCommentDisabled, deleteComment}) => {
     
     return(
         <>
             <div className={`post-dots ${variation}`} onClick={() => {
                 if(optionsDisplayed) optionsDisplayed();
                 if(activateOptions) activateOptions();
-            }}>{isCommentByUser ? <div className='dotBtns'  onClick={() => {
+            }}>{isCommentByUser || displayOptions ? <div className='dotBtns'  onClick={() => {
                         if(saveEditPostChanges) saveEditPostChanges();
-                        if(setCommentDisabled) setCommentDisabled(prev => !prev);
-                    }}>
+                        if(manageEditComment) manageEditComment()}}>
                     <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
-                    <h2 className='dotsBtn' onClick={() => {if(editComment) editComment(id)}}>{isCommentDisabled || optionsDisplayed ? 'Edit' : 'Save'}</h2>
+                    <h2 className='dotsBtn'>{isCommentDisabled || optionsDisplayed ? 'Edit' : 'Save'}</h2>
                 </div> : ''}
                 
                 <div className='dotBtns'>

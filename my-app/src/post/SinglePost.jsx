@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './SinglePost.css'
 import Btn from '../button/Btn';
 import SearchBar from '../searchBar/SearchBar';
@@ -23,13 +23,9 @@ const SinglePost = ({ post, deletePost, user}) => {
         setPostData(prev => ({...prev, writenContent: value }));
         setPostInput(value)
     }
-    const saveEditPostChanges = () => {
-        setIsEdited(prev => !prev);
-    }
+    const saveEditPostChanges = () => setIsEdited(prev => !prev);
 
-    const optionsDisplayed = () => {
-        setDisplayOptions(prev => !prev);
-    }
+    const optionsDisplayed = () => setDisplayOptions(prev => !prev);
     
     const addNewComment = () => {
         if(newComment.content != ''){
@@ -38,18 +34,16 @@ const SinglePost = ({ post, deletePost, user}) => {
         } 
     };
 
-    const editComment = (commentId) => {
-        setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: newComment.content } : comment)}))
-    }
-    const deleteComment = (commentId) => {
-        setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
-    }
+    const editComment = (commentId, value) => setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: value } : comment)}))
+    
+    const deleteComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
+    
     const addNewLike = () => {
         setIsLiked(prev => !prev);
         setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
         if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
-    const focusAddComment = () => refInput.current.focus();
+    const focusAddCommentInput = () => refInput.current.focus();
 
     return(
         <>
@@ -62,9 +56,9 @@ const SinglePost = ({ post, deletePost, user}) => {
                     </div>
                     <svg className='dots' onClick={optionsDisplayed} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                 </div>
-                {displayOptions ? <DotOptions id={id} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
+                {displayOptions ? <DotOptions id={id} displayOptions={displayOptions} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
                 {isEdited ? <textarea value={postInput} onChange={editPost}/> : <p>{writenContent}</p>}
-                {isEdited ? <Btn variation='saveBtn' onClick={() => {saveEditPostChanges}}>Save</Btn> : ''}
+                {isEdited ? <Btn variation='saveBtn' onClick={saveEditPostChanges}>Save</Btn> : ''}
                 <div className='comments-tag'>
                     {likes.map((content, index, array) => {
                         const { name, lastName } = content;
@@ -80,7 +74,7 @@ const SinglePost = ({ post, deletePost, user}) => {
                 </div>
                 <div className='like-comment-btns'>
                     <Btn variation={isLiked ? 'comment-like-btn-clicked' : 'comment-like-btn'} onClick={addNewLike}>👍🏻Like</Btn>
-                    <Btn variation='comment-like-btn' onClick={focusAddComment}>💬Comments</Btn>
+                    <Btn variation='comment-like-btn' onClick={focusAddCommentInput}>💬Comments</Btn>
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
