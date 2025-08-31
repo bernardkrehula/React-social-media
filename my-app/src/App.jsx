@@ -56,12 +56,8 @@ function App() {
   });
   const [ newPost, setNewPost ] = useState({});
   const [ searchedFriend, setSearchedFriend ] = useState([]);
-  //Napraviti strukturu unutar socialMediaData, ali na useEffect staviti podatke iz data.js u tu strukturu
-  //Maknuti edit komentara drugih usera samno da ih ja mogu brisati
-  //Dodati like posta
-  //Posloziti strukturu filova da ne bude sve razbacano u src
-  //Sve pomaknuti u komponente sto mogu
-
+  const refInput = useRef(null);
+  
   useEffect(() => {
     setLoading(true)
     setUser(data);
@@ -83,6 +79,7 @@ function App() {
         ...prev.postContentData
       ]
     }))
+    refInput.current.value = '';
   }
   const deletePost = (postID) => {
     setUser(prev => ({
@@ -90,6 +87,11 @@ function App() {
       postContentData: prev.postContentData.filter(post => post.id !== postID)
     }))
   }
+
+  const editPost = (postId, value) => {
+      setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, writenContent: value} : post)}))
+  }
+
 
   if(loading) return <LoadingSpinner /> 
 
@@ -123,13 +125,13 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' setNewPost={setNewPost}></SearchBar>
+          <SearchBar placeholder='Write a post' variation='addPostBar' refInput={refInput} setNewPost={setNewPost}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map((post, index) => (<SinglePost key={post.id} post={post} deletePost={deletePost} user={user}/>))}
+            {user.postContentData.map((post, index) => (<SinglePost key={post.id} post={post} editPost={editPost} deletePost={deletePost} user={user}/>))}
           </div>
         </div>   
       </div>
