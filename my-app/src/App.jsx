@@ -91,7 +91,13 @@ function App() {
   const editPost = (postId, value) => {
       setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, writenContent: value} : post)}))
   }
-
+  const addNewComment = (postId, newComment) => {
+        if(newComment.content != ''){
+            setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: [...post.postComments, newComment]} : post)}))
+            refInput.current.value = '';
+        } 
+    };
+  const editComment = (postId, commentId, value) => setPostData(prev => ({...prev, postContent: prev.postContent.map(post => post.id === postId ? {...post, postComments: post.postComments.map(comment => comment.id === commentId ? {...comment, content: value} : comment)} : post)}))
 
   if(loading) return <LoadingSpinner /> 
 
@@ -131,7 +137,7 @@ function App() {
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map((post, index) => (<SinglePost key={post.id} post={post} editPost={editPost} deletePost={deletePost} user={user}/>))}
+            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} user={user}/>))}
           </div>
         </div>   
       </div>

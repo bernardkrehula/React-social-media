@@ -7,7 +7,7 @@ import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
-const SinglePost = ({ post, deletePost, user, editPost}) => {
+const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment}) => {
     const [ postData, setPostData ] = useState(post);
     const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
@@ -24,22 +24,13 @@ const SinglePost = ({ post, deletePost, user, editPost}) => {
     //Napravi funkciju format likes text
     //Kad se post edituje i komentar isto neka pise edited (pokraj 11 months ago)
 
-    const editContentOnChange = (e) => {
+    const editPostOnChange = (e) => {
         const value = e.target.value;
         editPost(id, value);
     }
     const saveEditPostChanges = () => setIsEdited(prev => !prev);
 
     const optionsDisplayed = () => setDisplayOptions(prev => !prev);
-    
-    const addNewComment = () => {
-        if(newComment.content != ''){
-            setPostData(prev => ({...prev, postComments: [...prev.postComments, { ...newComment, id: crypto.randomUUID() }]}))
-            refInput.current.value = '';
-        } 
-    };
-
-    const editComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.map(comment=> comment.id === commentId ? {...comment, content: newComment.content } : comment)}))
     
     const deleteComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
     //2 funckije za like 
@@ -62,7 +53,7 @@ const SinglePost = ({ post, deletePost, user, editPost}) => {
                     <svg className='dots' onClick={optionsDisplayed} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                 </div>
                 {displayOptions ? <DotOptions id={id} displayOptions={displayOptions} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
-                {isEdited ? <textarea value={writenContent} onChange={editContentOnChange}/> : <p>{writenContent}</p>}
+                {isEdited ? <textarea value={writenContent} onChange={editPostOnChange}/> : <p>{writenContent}</p>}
                 {isEdited ? <Btn variation='saveBtn' onClick={saveEditPostChanges}>Save</Btn> : ''}
                 <div className='comments-tag'>
                     {/* likes.map((content, index, array) => {
@@ -85,10 +76,10 @@ const SinglePost = ({ post, deletePost, user, editPost}) => {
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
                     <SearchBar placeholder='Write a comment' setNewComment={setNewComment} refInput={refInput} variation='addComment'/>
-                    <Btn onClick={addNewComment}>Add comment</Btn>
+                    <Btn onClick={() => addNewComment(id, newComment)}>Add comment</Btn>
                 </div> 
                 {displayComments && postComments.length != 0 ? <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} comment={comment} editComment={editComment} deleteComment={deleteComment}/>)}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} postId={id} comment={comment} setNewComment={setNewComment} editComment={editComment} addNewComment={addNewComment} deleteComment={deleteComment}/>)}
                 </div> : null}
             </div>
         </>
