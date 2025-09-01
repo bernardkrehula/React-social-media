@@ -96,10 +96,9 @@ function App() {
       setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, writenContent: value} : post)}))
   }
   const addNewComment = (postId, newComment) => {
-        if(newComment.content != ''){
-            setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: [...post.postComments, newComment]} : post)}))
-        }
-    };
+      if(newComment.content != '') setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: [...post.postComments, newComment]} : post)}))
+  };
+
   const editComment = (postId, commentId, value) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.map(comment => comment.id === commentId ? {...comment, content: value} : comment)} : post)}))
 
   const deleteComment = (postId, commentId) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.filter(comment => comment.id !== commentId)} : post)}));

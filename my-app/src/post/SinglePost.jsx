@@ -8,7 +8,6 @@ import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
 const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, refInput, deleteComment}) => {
-    const [ postData, setPostData ] = useState(post);
     const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
@@ -16,6 +15,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
     const [ isLiked, setIsLiked ] = useState(false);
     const [ displayComments, setDisplayComments ] = useState(false);
     const [ commentInput, setCommentInput ] = useState('');
+    const refFocus = useRef(null);
 
     //Premjesiti izvor istine u app jsx
     //Pogledaj library date-fns za formatiranje datuma
@@ -40,11 +40,12 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
         if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
     const manageAddNewComment = () => {
-        addNewComment(id, newComment);
         setNewComment(newEmptyComment);
+        addNewComment(id, newComment);
         setCommentInput('');
     }
-    const focusAddCommentInput = () => refInput.current.focus();
+
+    const focusAddCommentInput = () => refFocus.current.focus();
 
     return(
         <>
@@ -80,7 +81,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} value={commentInput} setSearchBarValue={setCommentInput} variation='addComment'/>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} value={commentInput} setSearchBarValue={setCommentInput} refFocus={refFocus} variation='addComment'/>
                     <Btn onClick={manageAddNewComment}>Add comment</Btn>
                 </div> 
                 {displayComments && postComments.length != 0 ? <div className='commentSection'>

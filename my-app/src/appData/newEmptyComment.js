@@ -4,6 +4,7 @@ const newEmptyComment = {
     userName: 'Bernard',
     userLastName: 'Krehula',
     userImg: '/profilePicture.JPG',
-    isCommentByUser: true
+    isCommentByUser: true,
+    isCommentEdited: false
 }
 export default newEmptyComment;
