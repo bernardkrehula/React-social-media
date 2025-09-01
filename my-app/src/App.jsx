@@ -56,6 +56,7 @@ function App() {
   });
   const [ newPost, setNewPost ] = useState({});
   const [ searchedFriend, setSearchedFriend ] = useState([]);
+  const [ searchBarValue, setSearchBarValue ] = useState('');
   const refInput = useRef(null);
   
   useEffect(() => {
@@ -79,8 +80,11 @@ function App() {
         ...prev.postContentData
       ]
     }))
-    refInput.current.value = '';
+    resetSearchBarInput();
   }
+
+  const resetSearchBarInput = () => setSearchBarValue('');
+
   const deletePost = (postID) => {
     setUser(prev => ({
       ...prev,
@@ -94,10 +98,11 @@ function App() {
   const addNewComment = (postId, newComment) => {
         if(newComment.content != ''){
             setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: [...post.postComments, newComment]} : post)}))
-            refInput.current.value = '';
-        } 
+        }
     };
-  const editComment = (postId, commentId, value) => setPostData(prev => ({...prev, postContent: prev.postContent.map(post => post.id === postId ? {...post, postComments: post.postComments.map(comment => comment.id === commentId ? {...comment, content: value} : comment)} : post)}))
+  const editComment = (postId, commentId, value) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.map(comment => comment.id === commentId ? {...comment, content: value} : comment)} : post)}))
+
+  const deleteComment = (postId, commentId) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, post: post.postComments.filter(comment => comment.id !== commentId)} : post)}));
 
   if(loading) return <LoadingSpinner /> 
 
@@ -131,13 +136,13 @@ function App() {
           </div>
         </div>
         <div className='addPost'>
-          <SearchBar placeholder='Write a post' variation='addPostBar' refInput={refInput} setNewPost={setNewPost}></SearchBar>
+          <SearchBar placeholder='Write a post' variation='addPostBar' refInput={refInput} value={searchBarValue} setSearchBarValue={setSearchBarValue} setNewPost={setNewPost}></SearchBar>
           <Btn variation='addBtn' onClick={addPost}>Add post</Btn>
         </div>
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} user={user}/>))}
+            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} refInput={refInput} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} user={user}/>))}
           </div>
         </div>   
       </div>

@@ -1,29 +1,32 @@
 import './SearchBar.css'
 import emptyPost from '../appData/emptyPost';
 
-const SearchBar = ({ placeholder, handleChanges, filterFriends, setNewPost, variation, setNewComment, disabled, refInput }) => {
-
+const SearchBar = ({ placeholder, value, setSearchBarValue, handleChanges, filterFriends, setNewPost, variation, setNewComment, disabled }) => {
+    
     const handleOnChange = (e) => {
-        const value = e.target.value;
-        
+        const inputValue = e.target.value;
+        setSearchBarValue(inputValue);
+    
         if(filterFriends) filterFriends(value);
 
-        if(setNewComment) {
+       /*  if(setNewComment) {
             setNewComment(prev => ({...prev, content: value}))
         };
+ */
 
         if(setNewPost){
             setNewPost({
                 ...emptyPost,
+                id: crypto.randomUUID(),
                 writenContent: value
             });
         }
         if(handleChanges){
-            handleChanges(value);
-        }
+            handleChanges(inputValue);
+        } 
     }
     return(
-        <input className={`searchBar ${variation}`} ref={refInput} placeholder={placeholder} onChange={handleOnChange} disabled={disabled}/>
+        <input className={`searchBar ${variation}`} value={value} placeholder={placeholder} onChange={handleOnChange} disabled={disabled}/>
     )
 }
 

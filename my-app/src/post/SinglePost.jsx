@@ -7,7 +7,7 @@ import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
-const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment}) => {
+const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, refInput}) => {
     const [ postData, setPostData ] = useState(post);
     const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
@@ -15,7 +15,8 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
     const [ newComment, setNewComment ] = useState(newEmptyComment);
     const [ isLiked, setIsLiked ] = useState(false);
     const [ displayComments, setDisplayComments ] = useState(false);
-    const refInput = useRef(null);
+    const [ commentInput, setCommentInput ] = useState('');
+
     //Premjesiti izvor istine u app jsx
     //Pogledaj library date-fns za formatiranje datuma
     //Pogledaj kako mozes da postignes istu funckionalnost koristeci taj library
@@ -39,6 +40,11 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
         setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
         if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
     };
+    const manageAddNewComment = () => {
+        addNewComment(id, newComment);
+        setNewComment(newEmptyComment);
+        setCommentInput('');
+    }
     const focusAddCommentInput = () => refInput.current.focus();
 
     return(
@@ -75,11 +81,11 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} refInput={refInput} variation='addComment'/>
-                    <Btn onClick={() => addNewComment(id, newComment)}>Add comment</Btn>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} /* value={commentInput} */ setSearchBarValue={setCommentInput} variation='addComment'/>
+                    <Btn onClick={manageAddNewComment}>Add comment</Btn>
                 </div> 
                 {displayComments && postComments.length != 0 ? <div className='commentSection'>
-                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} postId={id} comment={comment} setNewComment={setNewComment} editComment={editComment} addNewComment={addNewComment} deleteComment={deleteComment}/>)}
+                    {postComments.slice().reverse().map((comment, index) => <Comment key={index} postId={id} comment={comment} setNewComment={setNewComment} editComment={editComment} commentInput={commentInput} setCommentInput={setCommentInput}  addNewComment={addNewComment} deleteComment={deleteComment}/>)}
                 </div> : null}
             </div>
         </>
