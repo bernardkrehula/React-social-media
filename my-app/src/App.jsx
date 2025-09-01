@@ -102,7 +102,7 @@ function App() {
     };
   const editComment = (postId, commentId, value) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.map(comment => comment.id === commentId ? {...comment, content: value} : comment)} : post)}))
 
-  const deleteComment = (postId, commentId) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, post: post.postComments.filter(comment => comment.id !== commentId)} : post)}));
+  const deleteComment = (postId, commentId) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.filter(comment => comment.id !== commentId)} : post)}));
 
   if(loading) return <LoadingSpinner /> 
 
@@ -142,7 +142,7 @@ function App() {
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} refInput={refInput} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} user={user}/>))}
+            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} refInput={refInput} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} deleteComment={deleteComment} user={user}/>))}
           </div>
         </div>   
       </div>

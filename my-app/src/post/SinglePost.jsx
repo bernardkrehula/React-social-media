@@ -7,7 +7,7 @@ import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
-const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, refInput}) => {
+const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, refInput, deleteComment}) => {
     const [ postData, setPostData ] = useState(post);
     const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
@@ -33,7 +33,6 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
 
     const optionsDisplayed = () => setDisplayOptions(prev => !prev);
     
-    const deleteComment = (commentId) => setPostData(prev => ({...prev, postComments: postComments.filter(comment => comment.id != commentId)}))
     //2 funckije za like 
     const addNewLike = () => {
         setIsLiked(prev => !prev);
@@ -58,7 +57,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                     </div>
                     <svg className='dots' onClick={optionsDisplayed} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                 </div>
-                {displayOptions ? <DotOptions id={id} displayOptions={displayOptions} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
+                {displayOptions ? <DotOptions postId={id} displayOptions={displayOptions} optionsDisplayed={optionsDisplayed} saveEditPostChanges={saveEditPostChanges} deletePost={deletePost} /> : ''}
                 {isEdited ? <textarea value={writenContent} onChange={editPostOnChange}/> : <p>{writenContent}</p>}
                 {isEdited ? <Btn variation='saveBtn' onClick={saveEditPostChanges}>Save</Btn> : ''}
                 <div className='comments-tag'>
@@ -81,7 +80,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                 </div>
                 <div className='addComment'>
                     <img className='profileImg' src='/profilePicture.JPG'/>
-                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} /* value={commentInput} */ setSearchBarValue={setCommentInput} variation='addComment'/>
+                    <SearchBar placeholder='Write a comment' setNewComment={setNewComment} value={commentInput} setSearchBarValue={setCommentInput} variation='addComment'/>
                     <Btn onClick={manageAddNewComment}>Add comment</Btn>
                 </div> 
                 {displayComments && postComments.length != 0 ? <div className='commentSection'>
