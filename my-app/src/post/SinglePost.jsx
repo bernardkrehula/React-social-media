@@ -46,6 +46,18 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
         addNewComment(id, newComment);
         setCommentInput('');
     }
+    const renderLikes = () => 
+        likes.map((content, index, array) => {
+            const { name, lastName } = content;
+
+            return(
+                <React.Fragment key={index}>
+                    {index < 2 ? <h2>{name} {lastName}</h2> : <h3>and {array.length - 2} other like this post</h3>}
+                    {index < 1 ? <h2 className='comma'>,</h2> : null}
+                    {index < 1 || array.length > 2 ? null : <h3>likes this post</h3>}
+                </React.Fragment>
+            )
+        })
 
     const focusAddCommentInput = () => refFocus.current.focus();
 
@@ -64,17 +76,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                 {isEdited ? <textarea value={writenContent} onChange={editPostOnChange}/> : <p>{writenContent}</p>}
                 {isEdited ? <Btn variation='saveBtn' onClick={saveEditPostChanges}>Save</Btn> : ''}
                 <div className='comments-tag'>
-                    {/* likes.map((content, index, array) => {
-                        const { name, lastName } = content;
-                        //Napravi funkciju format likes text koja ce da primi likes array i da vrati string koji tu treba da pise
-                        return(
-                            <React.Fragment key={index}>
-                                {index < 2 ? <h2>{name} {lastName}</h2> : <h3>and {array.length - 2} other like this post</h3>}
-                                {index < 1 ? <h2 className='comma'>,</h2> : null}
-                                {index < 1 || array.length > 2 ? null : <h3>likes this post</h3>}
-                            </React.Fragment>
-                        )
-                    }) */} 
+                    {renderLikes()} 
                     <h4 onClick={() => setDisplayComments(prev => !prev)}>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>

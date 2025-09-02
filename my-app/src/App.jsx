@@ -107,7 +107,6 @@ function App() {
     if(!isLiked) setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, likes: [...post.likes, like]} : post)}))
   }
   const unlikePost = (postId, isLiked) => {
-    console.log(user.postContentData[0])
     if(isLiked) setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, likes: post.likes.filter(like => !like.isLikedByUser)} : post)}))
   }
 
