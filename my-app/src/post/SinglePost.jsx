@@ -7,7 +7,7 @@ import DotOptions from './DotOptions/DotOptions';
 import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
-const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, refInput, deleteComment}) => {
+const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, likePost, unlikePost, deleteComment}) => {
     const { id, writenContent, time, postComments, likes } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
@@ -34,11 +34,13 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
     const optionsDisplayed = () => setDisplayOptions(prev => !prev);
     
     //2 funckije za like 
-    const addNewLike = () => {
+    
+    const manageLikes = () => {
         setIsLiked(prev => !prev);
-        setPostData(prev => ({...prev, likes: [...prev.likes, userLike]}))
-        if(isLiked) setPostData(prev => ({...prev, likes: prev.likes.filter(like => !like.isLikedByUser)}))
-    };
+        likePost(id, userLike, isLiked);
+        unlikePost(id, isLiked);
+    }
+
     const manageAddNewComment = () => {
         setNewComment(newEmptyComment);
         addNewComment(id, newComment);
@@ -76,7 +78,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                     <h4 onClick={() => setDisplayComments(prev => !prev)}>{postComments.length} comments</h4>
                 </div>
                 <div className='like-comment-btns'>
-                    <Btn variation={isLiked ? 'comment-like-btn-clicked' : 'comment-like-btn'} onClick={addNewLike}>👍🏻Like</Btn>
+                    <Btn variation={isLiked ? 'comment-like-btn-clicked' : 'comment-like-btn'} onClick={manageLikes}>👍🏻Like</Btn>
                     <Btn variation='comment-like-btn' onClick={focusAddCommentInput}>💬Comments</Btn>
                 </div>
                 <div className='addComment'>

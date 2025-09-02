@@ -103,6 +103,14 @@ function App() {
 
   const deleteComment = (postId, commentId) => setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: post.postComments.filter(comment => comment.id !== commentId)} : post)}));
 
+  const likePost = (postId, like, isLiked) => {
+    if(!isLiked) setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, likes: [...post.likes, like]} : post)}))
+  }
+  const unlikePost = (postId, isLiked) => {
+    console.log(user.postContentData[0])
+    if(isLiked) setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, likes: post.likes.filter(like => !like.isLikedByUser)} : post)}))
+  }
+
   if(loading) return <LoadingSpinner /> 
 
   return (
@@ -141,7 +149,7 @@ function App() {
         <div className='postContent'>
           <FriendList friendsList={user.friendsList}/>
           <div className='post-section'>
-            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} refInput={refInput} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} deleteComment={deleteComment} user={user}/>))}
+            {user.postContentData.map(post => (<SinglePost key={post.id} post={post} editPost={editPost} refInput={refInput} editComment={editComment} addNewComment={addNewComment} deletePost={deletePost} deleteComment={deleteComment} user={user} likePost={likePost} unlikePost={unlikePost}/>))}
           </div>
         </div>   
       </div>
