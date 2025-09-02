@@ -1,3 +1,13 @@
+import { differenceInCalendarMonths, addYears } from 'date-fns'
+
+const getDate = (year, month) => {
+    const date = new Date(year, month - 1);
+    console.log(date)
+    const today = new Date();
+
+    const difference = differenceInCalendarMonths(today, date);
+    return difference;
+}
 
 const data = {
     userPersonalData: {
@@ -51,7 +61,7 @@ const data = {
         {
             id: crypto.randomUUID(),
             writenContent: "If I'm to choose between one evil and another, I'd rather not choose at all.",
-            time: "11 months ago",
+            time: `${getDate(2024, 11)} months ago`,
             isPostEdited: false,
 
             postComments: [
@@ -98,7 +108,7 @@ const data = {
         {
             id: crypto.randomUUID(),
             writenContent: "It's not who I am underneath, but what I do that defines me.",
-            time: "about 1 year ago",
+            time: `${getDate(2024, 9)} months ago`,
             isPostEdited: false,
 
             postComments: [],
@@ -116,7 +126,7 @@ const data = {
         {
             id: crypto.randomUUID(),
             writenContent: "A true hero isn't measured by the size of his strength but by the strength of his heart",
-            time: "about 1 year ago",
+            time: `${getDate(2024, 9)} months ago`,
             isPostEdited: false,
 
             postComments: [

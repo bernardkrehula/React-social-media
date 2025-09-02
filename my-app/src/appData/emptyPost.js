@@ -1,8 +1,11 @@
+import { format } from "date-fns";
+
+const date = new Date();
 
 const emptyPost = {
             id: '',
             writenContent: "",
-            time: `${new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, '0')}`,
+            time: format(date, 'HH:mm'),
             isPostEdited: false,
 
             postComments: [],
