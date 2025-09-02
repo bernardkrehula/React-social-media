@@ -8,7 +8,7 @@ import Comment from './comments/Comment';
 import userLike from '../appData/userLike';
 
 const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComment, likePost, unlikePost, deleteComment}) => {
-    const { id, writenContent, time, postComments, likes } = post;
+    const { id, writenContent, time, postComments, likes, isPostEdited } = post;
     const [ displayOptions, setDisplayOptions ] = useState(false);
     const [ isEdited, setIsEdited ] = useState(false);
     const [ newComment, setNewComment ] = useState(newEmptyComment);
@@ -29,7 +29,10 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
         const value = e.target.value;
         editPost(id, value);
     }
-    const saveEditPostChanges = () => setIsEdited(prev => !prev);
+    const saveEditPostChanges = () => {
+        /* console.log(post) */
+        setIsEdited(prev => !prev)
+    };
 
     const optionsDisplayed = () => setDisplayOptions(prev => !prev);
     
@@ -68,7 +71,7 @@ const SinglePost = ({ post, deletePost, user, editPost, editComment, addNewComme
                     <img className='profileImg' src={user.userPersonalData.img}/>
                     <div className='profilePhoto-data-text'>
                         <h1>{user.userPersonalData.name} {user.userPersonalData.lastName}</h1>
-                        <h2>{time}</h2>
+                        <h2>{time} {isPostEdited ? '(edited)' : ''}</h2>
                     </div>
                     <svg className='dots' onClick={optionsDisplayed} xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                 </div>

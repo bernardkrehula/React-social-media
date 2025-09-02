@@ -93,7 +93,7 @@ function App() {
   }
 
   const editPost = (postId, value) => {
-      setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, writenContent: value} : post)}))
+      setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, writenContent: value, isPostEdited: true} : post)}))
   }
   const addNewComment = (postId, newComment) => {
       if(newComment.content != '') setUser(prev => ({...prev, postContentData: prev.postContentData.map(post => post.id === postId ? {...post, postComments: [...post.postComments, newComment]} : post)}))
